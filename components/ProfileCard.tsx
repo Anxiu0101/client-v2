@@ -6,7 +6,7 @@ export function ProfileCard() {
       <h1 className="text-4xl mb-3">PaperMod</h1>
       <div className="text-muted-foreground space-y-1 mb-4">
         <p>
-          Welcome to demo of Hugo's theme PaperMod.{' '}
+          Welcome to demo of Hugo&apos;s theme PaperMod.{' '}
           <a href="#" className="underline hover:opacity-60 transition-opacity">
             PaperMod
           </a>{' '}

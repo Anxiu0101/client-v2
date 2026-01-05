@@ -1,6 +1,6 @@
-import { TableOfContents } from '../../components/TableOfContents';
-import { BlogPostMeta } from '../../components/BlogPostMeta';
-import { BlogPostNavigation } from '../../components/BlogPostNavigation';
+import { TableOfContents } from '@/components/TableOfContents';
+import { BlogPostMeta } from '@/components/BlogPostMeta';
+import { BlogPostNavigation } from '@/components/BlogPostNavigation';
 
 const tocItems = [
     { id: 'heading-2-l2', title: 'Heading 2 L2', level: 2 },

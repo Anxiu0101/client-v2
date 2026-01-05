@@ -1,13 +1,13 @@
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import {Moon, Sun, Menu, X, Search} from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Button } from '../components/ui/button';
+import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const navItems = [
-  { label: 'Archive', href: '#' },
-  { label: 'Categories', href: '#' },
-  { label: 'Search', href: '#' },
-  { label: 'Tags', href: '#' },
+  { label: 'Tech', href: '#' },
+  { label: 'Book', href: '#' },
+  { label: 'Life', href: '#' },
+  { label: 'About Me', href: '#' },
 ];
 
 export function Header() {
@@ -20,13 +20,13 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span className="font-semibold">PaperMod</span>
-            <span className="hidden sm:inline-flex gap-1">
-              <span className="text-[#3b82f6]">C</span>
-              <span className="text-[#10b981]">H</span>
-              <span className="text-[#f59e0b]">R</span>
-              <span className="text-[#ef4444]">S</span>
-            </span>
+            <span className="font-semibold">Anxiu.Info</span>
+            {/*<span className="hidden sm:inline-flex gap-1">*/}
+            {/*  <span className="text-[#3b82f6]">0</span>*/}
+            {/*  <span className="text-[#10b981]">1</span>*/}
+            {/*  <span className="text-[#f59e0b]">0</span>*/}
+            {/*  <span className="text-[#ef4444]">1</span>*/}
+            {/*</span>*/}
           </a>
 
           {/* Desktop Navigation */}
@@ -40,6 +40,14 @@ export function Header() {
                 {item.label}
               </a>
             ))}
+            <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0"
+            >
+              <Search className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <span className="sr-only">Blog Search</span>
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -80,7 +88,7 @@ export function Header() {
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
+          {mobileMenuOpen && (
           <nav className="md:hidden border-t border-border/40 py-4">
             <div className="flex flex-col gap-3">
               {navItems.map((item) => (

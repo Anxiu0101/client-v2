@@ -1,10 +1,10 @@
 "use client"
 
-import { ThemeProvider } from '../components/ThemeProvider';
-import { Header } from '../components/Header';
-import { ProfileCard } from '../components/ProfileCard';
-import { PostCard } from '../components/PostCard';
-import { Footer } from '../components/Footer';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { Header } from '@/components/Header';
+import { ProfileCard } from '@/components/ProfileCard';
+import { PostCard } from '@/components/PostCard';
+import { Footer } from '@/components/Footer';
 import { BlogPost } from './blog/page';
 import { useState } from 'react';
 
