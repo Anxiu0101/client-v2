@@ -1,65 +1,110 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+import { ThemeProvider } from '../components/ThemeProvider';
+import { Header } from '../components/Header';
+import { ProfileCard } from '../components/ProfileCard';
+import { PostCard } from '../components/PostCard';
+import { Footer } from '../components/Footer';
+import { BlogPost } from './blog/page';
+import { useState } from 'react';
+
+const posts = [
+    {
+        title: 'Installation | Update',
+        summary: 'Read install and Update instructions here',
+        date: 'January 28, 2021',
+        readTime: '1 min',
+        author: 'Aditya Telange',
+        tags: ['Update', 'Docs'],
+    },
+    {
+        title: 'Features',
+        summary: 'Get to know about all features in PaperMod',
+        date: 'January 28, 2021',
+        readTime: '3 min',
+        author: 'Aditya Telange',
+    },
+    {
+        title: 'FAQs (work)',
+        summary: 'Frequently Asked Questions',
+        date: 'January 28, 2021',
+        readTime: '4 min',
+        author: 'Aditya Telange',
+    },
+    {
+        title: 'Getting Started with React 18',
+        summary: 'Learn about the new features and improvements in React 18',
+        date: 'January 5, 2026',
+        readTime: '5 min',
+        author: 'John Doe',
+        tags: ['React', 'JavaScript'],
+    },
+    {
+        title: 'Building Scalable Applications',
+        summary: 'Best practices for building applications that grow with your needs',
+        date: 'January 3, 2026',
+        readTime: '7 min',
+        author: 'Jane Smith',
+        tags: ['Architecture', 'Development'],
+    },
+    {
+        title: 'The Art of Minimalist Design',
+        summary: 'How to create beautiful interfaces with minimal elements',
+        date: 'January 1, 2026',
+        readTime: '6 min',
+        author: 'Alex Johnson',
+        tags: ['Design', 'UI/UX'],
+    },
+    {
+        title: 'TypeScript Best Practices',
+        summary: 'Write better TypeScript code with these proven patterns',
+        date: 'December 28, 2025',
+        readTime: '8 min',
+        author: 'Sarah Wilson',
+        tags: ['TypeScript', 'Development'],
+    },
+    {
+        title: 'Modern CSS Techniques',
+        summary: 'Explore the latest CSS features and how to use them effectively',
+        date: 'December 25, 2025',
+        readTime: '5 min',
+        author: 'Mike Brown',
+        tags: ['CSS', 'Web Development'],
+    },
+];
+
+export default function Page() {
+    const [currentView, setCurrentView] = useState<'home' | 'post'>('home');
+
+    return (
+        <ThemeProvider>
+            <div className="min-h-screen flex flex-col">
+        <Header />
+
+        <main className="flex-1">
+        {currentView === 'home' ? (
+            <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Profile/Intro Section */}
+                <ProfileCard />
+
+                {/* Posts List */}
+                <div className="space-y-4 py-8 pb-16">
+            {posts.map((post, index) => (
+                    <div key={index} onClick={() => setCurrentView('post')} className="cursor-pointer">
+        <PostCard {...post} />
     </div>
-  );
+))}
+    </div>
+    </div>
+) : (
+        <div onClick={() => setCurrentView('home')}>
+    <BlogPost />
+    </div>
+)}
+    </main>
+
+    <Footer />
+    </div>
+    </ThemeProvider>
+);
 }
