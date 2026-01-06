@@ -1,100 +1,110 @@
-import { TableOfContents } from '@/components/TableOfContents';
-import { BlogPostMeta } from '@/components/BlogPostMeta';
-import { BlogPostNavigation } from '@/components/BlogPostNavigation';
+"use client"
 
-const tocItems = [
-    { id: 'heading-2-l2', title: 'Heading 2 L2', level: 2 },
-    { id: 'heading-3-l2', title: 'Heading 3 L2', level: 3 },
-    { id: 'heading-4-l3', title: 'Heading 4 L3', level: 4 },
-    { id: 'heading-5-l2', title: 'Heading 5 L2', level: 5 },
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { Header } from '@/components/Header';
+import { ProfileCard } from '@/components/ProfileCard';
+import { PostCard } from '@/components/PostCard';
+import { Footer } from '@/components/Footer';
+import { BlogPost } from '@/app/blog/[id]/page';
+import { useState } from 'react';
+
+const posts = [
+    {
+        title: 'Installation | Update',
+        summary: 'Read install and Update instructions here',
+        date: 'January 28, 2021',
+        readTime: '1 min',
+        author: 'Aditya Telange',
+        tags: ['Update', 'Docs'],
+    },
+    {
+        title: 'Features',
+        summary: 'Get to know about all features in PaperMod',
+        date: 'January 28, 2021',
+        readTime: '3 min',
+        author: 'Aditya Telange',
+    },
+    {
+        title: 'FAQs (work)',
+        summary: 'Frequently Asked Questions',
+        date: 'January 28, 2021',
+        readTime: '4 min',
+        author: 'Aditya Telange',
+    },
+    {
+        title: 'Getting Started with React 18',
+        summary: 'Learn about the new features and improvements in React 18',
+        date: 'January 5, 2026',
+        readTime: '5 min',
+        author: 'John Doe',
+        tags: ['React', 'JavaScript'],
+    },
+    {
+        title: 'Building Scalable Applications',
+        summary: 'Best practices for building applications that grow with your needs',
+        date: 'January 3, 2026',
+        readTime: '7 min',
+        author: 'Jane Smith',
+        tags: ['Architecture', 'Development'],
+    },
+    {
+        title: 'The Art of Minimalist Design',
+        summary: 'How to create beautiful interfaces with minimal elements',
+        date: 'January 1, 2026',
+        readTime: '6 min',
+        author: 'Alex Johnson',
+        tags: ['Design', 'UI/UX'],
+    },
+    {
+        title: 'TypeScript Best Practices',
+        summary: 'Write better TypeScript code with these proven patterns',
+        date: 'December 28, 2025',
+        readTime: '8 min',
+        author: 'Sarah Wilson',
+        tags: ['TypeScript', 'Development'],
+    },
+    {
+        title: 'Modern CSS Techniques',
+        summary: 'Explore the latest CSS features and how to use them effectively',
+        date: 'December 25, 2025',
+        readTime: '5 min',
+        author: 'Mike Brown',
+        tags: ['CSS', 'Web Development'],
+    },
 ];
 
-export function BlogPost() {
+export default function BlogPage() {
+    const [currentView, setCurrentView] = useState<'home' | 'post'>('home');
+
     return (
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {/* Main Layout: Content + Sidebar */}
-            <div className="flex flex-col lg:flex-row gap-8">
-                {/* Main Content */}
-                <article className="flex-1 min-w-0">
-                    {/* Title */}
-                    <h1 className="text-4xl mb-6">Blog Title</h1>
+        <ThemeProvider>
+            <div className="min-h-screen flex flex-col">
+        <Header />
 
-                    {/* Introduction Paragraph */}
-                    <div className="prose prose-neutral dark:prose-invert max-w-none">
-                        <p>
-                            Accusam nonumy ea faugait invidunt erat dolor. Amet ex amet
-                            volutpat sadipscing sit duis tincidunt augue sea aliquyam dolore. Vel
-                            tempor voluptua eum et et. Vel dolor dolor invidunt sanctus ea amet
-                            esse est ipsum vero amet vero.
-                        </p>
+        <main className="flex-1">
+        {currentView === 'home' ? (
+            <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Profile/Intro Section */}
+                <ProfileCard />
 
-                        <p>
-                            Sit accusam dolore et clita clita est adipiscing dolores. Autem amet
-                            rebum lorem ipsum ipsum duo. Ut lius no dolor magna lorem duo rebum.
-                            Consetetur duo tempor dolore ipsum. Sit duis lorem sit accusam sea et
-                            dolor illum. Euismod augue in dolores velit lorem kasd ullamcorper kasd
-                            labore est. Kasd et nisl nisl et praesent eros sed clita et ea tempor
-                            labore eros faugiat dignissim. Ulta et duo sed ipsum amet vero est
-                            dolore.
-                        </p>
+                {/* Posts List */}
+                <div className="space-y-4 py-8 pb-16">
+            {posts.map((post, index) => (
+                    <div key={index} onClick={() => setCurrentView('post')} className="cursor-pointer">
+        <PostCard {...post} />
+    </div>
+))}
+    </div>
+    </div>
+) : (
+        <div onClick={() => setCurrentView('home')}>
+    <BlogPost />
+    </div>
+)}
+    </main>
 
-                        {/* Heading 2 */}
-                        <h2 id="heading-2-l2">Heading 2</h2>
-
-                        <p>
-                            Vel et sadipscing ipsum sit vero sed diam invidunt sadipscing erat amet.
-                            Dolores est amet voluptua dolor molestie elit dolore ipsum aliquyam sit.
-                            Tempor elitr aliquyam no aliquam ea option amet eiusmod rebum
-                            ipsum magna et augue takimata erat te. Eirmod lorem est gubergren et et.
-                        </p>
-
-                        <p>
-                            Ipsum ipsum aliquyam sea aliquyam vero amet et lorem et sadipscing ipsum.
-                            Magna soluta stet diam vero ipsum. Dolore dolor eirmod invidunt diam
-                            lorem dolor erat eirmod qui in sed diam nonumy ut.
-                        </p>
-
-                        {/* Nested Headings */}
-                        <h3 id="heading-3-l2">Heading 3 L2</h3>
-                        <p>
-                            This section demonstrates a heading level 3 under the main heading 2.
-                            The content follows the hierarchical structure shown in the table of contents.
-                        </p>
-
-                        <h4 id="heading-4-l3">Heading 4 L3</h4>
-                        <p>
-                            Deeper nesting with heading level 4. This creates a clear content hierarchy
-                            that helps readers navigate through complex topics.
-                        </p>
-
-                        <h5 id="heading-5-l2">Heading 5 L2</h5>
-                        <p>
-                            The deepest level in our table of contents. This fine-grained structure
-                            allows for detailed organization of content.
-                        </p>
-                    </div>
-
-                    {/* Tags and Metadata */}
-                    <BlogPostMeta
-                        tags={['中国年', 'EDA', 'Distributed System', 'Kafka']}
-                        author="Noct664"
-                        date="2024年10月8日"
-                        views="157"
-                        url="http://example.com/2024/10/08/kafka-消息链路实践/"
-                    />
-
-                    {/* Navigation */}
-                    <BlogPostNavigation
-                        previousPost={{
-                            title: 'Previous Post',
-                            href: '#',
-                        }}
-                    />
-                </article>
-
-                {/* Sidebar - Table of Contents */}
-                <TableOfContents items={tocItems} />
-            </div>
-        </div>
-    );
+    <Footer />
+    </div>
+    </ThemeProvider>
+);
 }
