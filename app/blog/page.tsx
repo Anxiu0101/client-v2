@@ -77,11 +77,7 @@ export default function BlogPage() {
     const [currentView, setCurrentView] = useState<'home' | 'post'>('home');
 
     return (
-        <ThemeProvider>
-            <div className="min-h-screen flex flex-col">
-        <Header />
-
-        <main className="flex-1">
+        <div>
         {currentView === 'home' ? (
             <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Profile/Intro Section */}
@@ -89,22 +85,22 @@ export default function BlogPage() {
 
                 {/* Posts List */}
                 <div className="space-y-4 py-8 pb-16">
-            {posts.map((post, index) => (
-                    <div key={index} onClick={() => setCurrentView('post')} className="cursor-pointer">
-        <PostCard {...post} />
-    </div>
-))}
-    </div>
-    </div>
-) : (
-        <div onClick={() => setCurrentView('home')}>
-    <BlogPost />
-    </div>
-)}
-    </main>
-
-    <Footer />
-    </div>
-    </ThemeProvider>
-);
+                    {posts.map((post, index) => (
+                        <div
+                          key={index}
+                          onClick={() => setCurrentView('post')}
+                          className="cursor-pointer"
+                        >
+                            <PostCard {...post} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ) : (
+            <div onClick={() => setCurrentView('home')}>
+                <BlogPost />
+            </div>
+        )}
+        </div>
+    );
 }

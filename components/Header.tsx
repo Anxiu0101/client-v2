@@ -1,4 +1,6 @@
-import {Moon, Sun, Menu, X, Search} from 'lucide-react';
+"use client";
+
+import { Moon, Sun, Menu, X, Search } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';

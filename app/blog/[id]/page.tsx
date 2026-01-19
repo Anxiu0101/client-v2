@@ -9,18 +9,21 @@ const tocItems = [
     { id: 'heading-5-l2', title: 'Heading 5 L2', level: 5 },
 ];
 
-export function BlogPost() {
+export default function BlogPost() {
     return (
-        <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        // 改造点1：优化外层容器样式，统一Layout规范+消除冗余+移动端适配
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 overflow-x-hidden">
             {/* Main Layout: Content + Sidebar */}
-            <div className="flex flex-col lg:flex-row gap-8">
+            {/* 改造点2：优化Flex布局，响应式间距+移动端紧凑排列 */}
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
                 {/* Main Content */}
                 <article className="flex-1 min-w-0">
-                    {/* Title */}
-                    <h1 className="text-4xl mb-6">Blog Title</h1>
+                    {/* Title - 改造点3：响应式字体，适配移动端小屏 */}
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">Blog Title</h1>
 
                     {/* Introduction Paragraph */}
-                    <div className="prose prose-neutral dark:prose-invert max-w-none">
+                    {/* 改造点4：优化Prose正文，移动端小号字体+提升阅读体验 */}
+                    <div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">
                         <p>
                             Accusam nonumy ea faugait invidunt erat dolor. Amet ex amet
                             volutpat sadipscing sit duis tincidunt augue sea aliquyam dolore. Vel
@@ -74,26 +77,36 @@ export function BlogPost() {
                         </p>
                     </div>
 
-                    {/* Tags and Metadata */}
-                    <BlogPostMeta
-                        tags={['中国年', 'EDA', 'Distributed System', 'Kafka']}
-                        author="Noct664"
-                        date="2024年10月8日"
-                        views="157"
-                        url="http://example.com/2024/10/08/kafka-消息链路实践/"
-                    />
+                    {/* Tags and Metadata - 改造点5：添加移动端间距优化，避免内容拥挤 */}
+                    <div className="mt-6 sm:mt-8">
+                        <BlogPostMeta
+                            tags={['中国年', 'EDA', 'Distributed System', 'Kafka']}
+                            author="Noct664"
+                            date="2024年10月8日"
+                            views="157"
+                            url="http://example.com/2024/10/08/kafka-消息链路实践/"
+                        />
+                    </div>
 
-                    {/* Navigation */}
-                    <BlogPostNavigation
-                        previousPost={{
-                            title: 'Previous Post',
-                            href: '#',
-                        }}
-                    />
+                    {/* Navigation - 改造点6：优化导航间距+移动端触摸反馈 */}
+                    <div className="mt-8 sm:mt-10">
+                        <BlogPostNavigation
+                            previousPost={{
+                                title: 'Previous Post',
+                                href: '#',
+                            }}
+                            className="active:opacity-80 transition-opacity duration-200"
+                        />
+                    </div>
                 </article>
 
-                {/* Sidebar - Table of Contents */}
-                <TableOfContents items={tocItems} />
+                {/* Sidebar - Table of Contents - 改造点7：侧边栏移动端适配，优化宽度与视觉 */}
+                <div className="w-full lg:w-64 lg:sticky lg:top-8 self-start">
+                    <TableOfContents
+                        items={tocItems}
+                        className="w-full px-3 sm:px-0 py-2 sm:py-0 border sm:border-0 border-gray-200 dark:border-gray-700 rounded-lg sm:rounded-none"
+                    />
+                </div>
             </div>
         </div>
     );
