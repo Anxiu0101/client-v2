@@ -42,3 +42,8 @@ next-env.d.ts
 
 # development tool-chain
 /.idea
+
+# velite content collection
+/content
+/.velite
+/public/static
