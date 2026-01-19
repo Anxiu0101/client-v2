@@ -21,6 +21,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
+      "velite-generate": ["./.velite"]
     }
   },
   "include": [

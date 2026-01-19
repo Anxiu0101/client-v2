@@ -3,7 +3,7 @@ import store from '@/app/store';
 import '../styles/globals.css';
 import { AppProps } from 'next/app';
 
-function CampusHubApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <Component {...pageProps} />
@@ -11,4 +11,4 @@ function CampusHubApp({ Component, pageProps }: AppProps) {
     );
 }
 
-export default CampusHubApp;
+export default App;
