@@ -1,12 +1,17 @@
 "use client"
 
-import { ThemeProvider } from '@/components/ThemeProvider';
-import { Header } from '@/components/Header';
 import { ProfileCard } from '@/components/ProfileCard';
 import { PostCard } from '@/components/PostCard';
-import { Footer } from '@/components/Footer';
-import { BlogPost } from '@/app/blog/[id]/page';
+import { BlogPost } from '@/app/(blog)/[id]/page';
 import { useState } from 'react';
+
+// import {
+//     techBlog,
+//     bookBlog,
+//     lifeBlog,
+// } from "velite-generate";
+//
+// const  posts = [techBlog, bookBlog, lifeBlog]
 
 const posts = [
     {

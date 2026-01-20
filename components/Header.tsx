@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const navItems = [
-  { label: 'Tech', href: '#' },
-  { label: 'Book', href: '#' },
-  { label: 'Life', href: '#' },
-  { label: 'About Me', href: '#' },
+  { label: 'Tech', href: '/tech' },
+  { label: 'Book', href: '/book' },
+  { label: 'Life', href: '/life' },
+  { label: 'About Me', href: '/about' },
 ];
 
 export function Header() {
