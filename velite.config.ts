@@ -11,71 +11,62 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 // `s` is extended from Zod with some custom schemas,
 // you can also import re-exported `z` from `velite` if you don't need these extension schemas.
 
+// Generate semantic slugs (year + title converted to kebab-case),
+// e.g. slug: <yyyy>-<blog-title>, 2025-ai-best-practice.
+const generateSlug = (title: string, date: string) => {
+    const formattedTitle = slugify(title, {
+        lower: true, // 转小写
+        strict: true, // 移除所有非URL安全字符
+        replacement: '-' // 替换空格为-
+    })
+
+    const year = date.slice(0, 4) || new Date().getFullYear().toString();
+
+    return `${year}-${formattedTitle}`
+}
+
 const computedFields = <T extends { title: string, date: string }>(data: T) => {
-    const slug = generateSlug(data.title, data.date)
+    const slugV = generateSlug(data.title, data.date)
     return {
         ...data,
-        slug: slug,
-        permalink: `/posts/${slug}`,
+        slug: slugV,
+        permalink: `/posts/${slugV}`,
     }
 }
+
+const postBlogSchema = s.object({
+        title: s.string().max(99), // Zod primitive type
+        // slug: s.slug(),            // validate format, unique in posts collection
+        // path: s.path(),                      // auto generate slug from file path
+        date: s.isodate(),                  // input Date-like string, output ISO Date string.
+        cover: s.image().optional(),        // input image relative path, output image object with blurImage.
+
+        metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
+        excerpt: s.excerpt(),   // excerpt of markdown content
+        content: s.mdx(),       // parse mdx file.
+        toc: s.toc(),           // transform markdown to table of content.
+    })
+    // more additional fields (computed fields)
+    .transform(computedFields)
+    // recover slug unique validation, bases on auto generate slug.
+    .refine(data => data.slug, 'slug cannnot be null')
 
 const techBlog = defineCollection({
     name: 'Tech', // collection type name
     pattern: 'tech/**/*.mdx', // content files glob pattern
-    schema: s
-        .object({
-            title: s.string().max(99), // Zod primitive type
-            // slug: s.slug('tech'),            // validate format, unique in posts collection
-            // path: s.path(),                      // auto generate slug from file path
-            date: s.isodate(),                  // input Date-like string, output ISO Date string.
-            cover: s.image().optional(),        // input image relative path, output image object with blurImage.
-
-            metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
-            excerpt: s.excerpt(),   // excerpt of markdown content
-            content: s.mdx(),       // parse mdx file.
-            toc: s.toc(),           // transform markdown to table of content.
-        })
-        // more additional fields (computed fields)
-        .transform(computedFields)
+    schema: postBlogSchema
 })
 
 const bookBlog = defineCollection({
     name: 'Book', // collection type name
-    pattern: 'book/**/*.md', // content files glob pattern
-    schema: s
-        .object({
-            title: s.string().max(99), // Zod primitive type
-            slug: s.slug('book'), // validate format, unique in posts collection
-            // slug: s.path(), // auto generate slug from file path
-            date: s.isodate(), // input Date-like string, output ISO Date string.
-            cover: s.image().optional(), // input image relative path, output image object with blurImage.
-            video: s.file().optional(), // input file relative path, output file public path.
-            metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
-            excerpt: s.excerpt(), // excerpt of markdown content
-            content: s.markdown() // transform markdown to html
-        })
-        // more additional fields (computed fields)
-        .transform(data => ({ ...data, permalink: `/blog/book/${data.slug}` }))
+    pattern: 'book/**/*.mdx', // content files glob pattern
+    schema: postBlogSchema
 })
 
 const lifeBlog = defineCollection({
-    name: 'Post', // collection type name
-    pattern: 'life/**/*.md', // content files glob pattern
-    schema: s
-        .object({
-            title: s.string().max(99), // Zod primitive type
-            slug: s.slug('posts/life'), // validate format, unique in posts collection
-            // slug: s.path(), // auto generate slug from file path
-            date: s.isodate(), // input Date-like string, output ISO Date string.
-            cover: s.image().optional(), // input image relative path, output image object with blurImage.
-            video: s.file().optional(), // input file relative path, output file public path.
-            metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
-            excerpt: s.excerpt(), // excerpt of markdown content
-            content: s.markdown() // transform markdown to html
-        })
-        // more additional fields (computed fields)
-        .transform(data => ({ ...data, permalink: `/blog/life/${data.slug}` }))
+    name: 'Life', // collection type name
+    pattern: 'life/**/*.mdx', // content files glob pattern
+    schema: postBlogSchema
 })
 
 export default defineConfig({
@@ -98,14 +89,3 @@ export default defineConfig({
     },
 })
 
-// Generate Slug by kebab-case with blog-title and year,
-// e.g. slug: <year>-<blog-title>, 2025-ai-best-practice.
-const generateSlug = (title: string, date: string) => {
-    const formatedTitle = slugify(title, {
-        lower: true, // 转小写
-        strict: true, // 移除所有非URL安全字符
-        replacement: '-' // 替换空格为-
-    })
-
-    return `${date.slice(0, 4)}-${formatedTitle}`
-}
