@@ -90,7 +90,7 @@ export function Header() {
         </div>
 
         {/* Mobile Menu */}
-          {mobileMenuOpen && (
+        {mobileMenuOpen && (
           <nav className="md:hidden border-t border-border/40 py-4">
             <div className="flex flex-col gap-3">
               {navItems.map((item) => (

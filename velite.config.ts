@@ -1,9 +1,9 @@
 import {
+    s, defineConfig,
     defineCollection,
-    defineConfig,
-    s
 } from 'velite'
 
+import slugify from "slugify";
 import rehypeSlug from "rehype-slug"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -11,10 +11,14 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 // `s` is extended from Zod with some custom schemas,
 // you can also import re-exported `z` from `velite` if you don't need these extension schemas.
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
-    ...data,
-    slugAsParams: data.slug.split("/").slice(1).join("/"),
-})
+const computedFields = <T extends { title: string, date: string }>(data: T) => {
+    const slug = generateSlug(data.title, data.date)
+    return {
+        ...data,
+        slug: slug,
+        permalink: `/posts/${slug}`,
+    }
+}
 
 const techBlog = defineCollection({
     name: 'Tech', // collection type name
@@ -22,10 +26,10 @@ const techBlog = defineCollection({
     schema: s
         .object({
             title: s.string().max(99), // Zod primitive type
-            slug: s.slug('tech'), // validate format, unique in posts collection
-            // slug: s.path(), // auto generate slug from file path
-            date: s.isodate(), // input Date-like string, output ISO Date string.
-            cover: s.image().optional(), // input image relative path, output image object with blurImage.
+            // slug: s.slug('tech'),            // validate format, unique in posts collection
+            // path: s.path(),                      // auto generate slug from file path
+            date: s.isodate(),                  // input Date-like string, output ISO Date string.
+            cover: s.image().optional(),        // input image relative path, output image object with blurImage.
 
             metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
             excerpt: s.excerpt(),   // excerpt of markdown content
@@ -42,7 +46,7 @@ const bookBlog = defineCollection({
     schema: s
         .object({
             title: s.string().max(99), // Zod primitive type
-            slug: s.slug('posts/book'), // validate format, unique in posts collection
+            slug: s.slug('book'), // validate format, unique in posts collection
             // slug: s.path(), // auto generate slug from file path
             date: s.isodate(), // input Date-like string, output ISO Date string.
             cover: s.image().optional(), // input image relative path, output image object with blurImage.
@@ -93,3 +97,15 @@ export default defineConfig({
         ],
     },
 })
+
+// Generate Slug by kebab-case with blog-title and year,
+// e.g. slug: <year>-<blog-title>, 2025-ai-best-practice.
+const generateSlug = (title: string, date: string) => {
+    const formatedTitle = slugify(title, {
+        lower: true, // 转小写
+        strict: true, // 移除所有非URL安全字符
+        replacement: '-' // 替换空格为-
+    })
+
+    return `${date.slice(0, 4)}-${formatedTitle}`
+}
