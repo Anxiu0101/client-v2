@@ -45,6 +45,9 @@ const postBlogSchema = s.object({
         excerpt: s.excerpt(),   // excerpt of markdown content
         content: s.mdx(),       // parse mdx file.
         toc: s.toc(),           // transform markdown to table of content.
+        tags: s.array(s.string()).default([]),
+        published: s.boolean().default(false),
+        comments: s.boolean().default(false),
     })
     // more additional fields (computed fields)
     .transform(computedFields)

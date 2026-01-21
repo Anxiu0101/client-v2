@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { tech as techBlog } from "velite-generate"
+import { techBlog } from "velite-generate"
 
 import { Mdx } from "@/components/mdx-components"
 import { DocsPageHeader } from "@/components/page-header"
