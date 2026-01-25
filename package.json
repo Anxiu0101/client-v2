@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "format": "eslint --fix",
-    "gen": "velite"
+    "gen": "velite",
+    "content:gen": "velite",
+    "content:build": "velite --clean"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -25,8 +25,23 @@ const generateSlug = (title: string, date: string) => {
     return `${year}-${formattedTitle}`
 }
 
-const computedFields = <T extends { title: string, date: string }>(data: T) => {
+const computedFields = <T extends {
+    title: string,
+    date: string,
+    // description: string,
+    // excerpt: string | undefined,
+}>(data: T) => {
+    // FIXME 写法太丑陋
+    // if (!data.description) {
+    //     if (!data.excerpt) {
+    //         data.description = ""
+    //     }
+    //     data.description = data.excerpt as string
+    //     data.excerpt = ""
+    // }
+
     const slugV = generateSlug(data.title, data.date)
+
     return {
         ...data,
         slug: slugV,
@@ -52,7 +67,7 @@ const postBlogSchema = s.object({
     // more additional fields (computed fields)
     .transform(computedFields)
     // recover slug unique validation, bases on auto generate slug.
-    .refine(data => data.slug, 'slug cannnot be null')
+    .refine(data => data.slug, 'slug cannot be null')
 
 const techBlog = defineCollection({
     name: 'Tech', // collection type name
@@ -71,6 +86,9 @@ const lifeBlog = defineCollection({
     pattern: 'life/**/*.mdx', // content files glob pattern
     schema: postBlogSchema
 })
+
+// transformerCopyButton support Copy Button for code block
+// TODO https://velite.js.org/guide/code-highlighting#copy-button
 
 export default defineConfig({
     root: "content",

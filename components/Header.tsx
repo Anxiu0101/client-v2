@@ -14,7 +14,7 @@ const navItems = [
 
 export function Header() {
   const { theme, setTheme } = useTheme();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [ mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="border-b border-border/40">
