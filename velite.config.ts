@@ -40,14 +40,14 @@ const postBlogSchema = s.object({
         // path: s.path(),                      // auto generate slug from file path
         date: s.isodate(),                  // input Date-like string, output ISO Date string.
         cover: s.image().optional(),        // input image relative path, output image object with blurImage.
-
+        description: s.string().max(99).optional(),
         metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
         excerpt: s.excerpt(),   // excerpt of markdown content
         content: s.mdx(),       // parse mdx file.
         toc: s.toc(),           // transform markdown to table of content.
-        tags: s.array(s.string()).default([]),
-        published: s.boolean().default(false),
-        comments: s.boolean().default(false),
+        tags: s.array(s.string()).default([]),  // blog tags, array[string]
+        published: s.boolean().default(false),  // publish or not, boolean value.
+        comments: s.boolean().default(false),   // enable github comment or not.
     })
     // more additional fields (computed fields)
     .transform(computedFields)

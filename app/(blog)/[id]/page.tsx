@@ -9,7 +9,7 @@ const tocItems = [
     { id: 'heading-5-l2', title: 'Heading 5 L2', level: 5 },
 ];
 
-export function BlogPost() {
+export default function BlogPost() {
     return (
         // 改造点1：优化外层容器样式，统一Layout规范+消除冗余+移动端适配
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 overflow-x-hidden">

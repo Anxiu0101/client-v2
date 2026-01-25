@@ -2,7 +2,9 @@
 
 import { ProfileCard } from '@/components/ProfileCard';
 import { PostCard } from '@/components/PostCard';
-import { BlogPost } from '@/app/(blog)/[id]/page';
+
+import BlogPost from '@/app/(blog)/[id]/page';
+
 import { useState } from 'react';
 
 // import {
