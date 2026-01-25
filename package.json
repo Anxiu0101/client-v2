@@ -10,7 +10,7 @@
     "format": "eslint --fix",
     "gen": "velite",
     "content:gen": "velite",
-    "content:build": "velite --clean"
+    "content:build": "velite --clean --verbose"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

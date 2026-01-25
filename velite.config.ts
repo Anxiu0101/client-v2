@@ -1,5 +1,6 @@
 import {
     s, defineConfig,
+    defineSchema,
     defineCollection,
 } from 'velite'
 
@@ -7,6 +8,25 @@ import slugify from "slugify";
 import rehypeSlug from "rehype-slug"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+
+import { exec } from 'child_process'
+import { promisify } from 'util'
+
+const execAsync = promisify(exec)
+
+// timestamp for last updated time by git timestamp.
+// https://velite.js.org/guide/last-modified#based-on-git-timestamp
+const timestamp = defineSchema(() =>
+    s
+        .custom<string | undefined>(i => i === undefined || typeof i === 'string')
+        .transform<string>(async (value, { meta, addIssue }) => {
+            if (value != null) {
+                addIssue({ fatal: false, code: 'custom', message: '`s.timestamp()` schema will resolve the value from `git log -1 --format=%cd`' })
+            }
+            const { stdout } = await execAsync(`git log -1 --format=%cd ${meta.path}`)
+            return new Date(stdout || Date.now()).toISOString()
+        })
+)
 
 // `s` is extended from Zod with some custom schemas,
 // you can also import re-exported `z` from `velite` if you don't need these extension schemas.
@@ -27,7 +47,7 @@ const generateSlug = (title: string, date: string) => {
 
 const computedFields = <T extends {
     title: string,
-    date: string,
+    created_date: string,
     // description: string,
     // excerpt: string | undefined,
 }>(data: T) => {
@@ -40,7 +60,7 @@ const computedFields = <T extends {
     //     data.excerpt = ""
     // }
 
-    const slugV = generateSlug(data.title, data.date)
+    const slugV = generateSlug(data.title, data.created_date)
 
     return {
         ...data,
@@ -53,7 +73,8 @@ const postBlogSchema = s.object({
         title: s.string().max(99), // Zod primitive type
         // slug: s.slug(),            // validate format, unique in posts collection
         // path: s.path(),                      // auto generate slug from file path
-        date: s.isodate(),                  // input Date-like string, output ISO Date string.
+        created_date: s.isodate(),                  // input Date-like string, output ISO Date string.
+        updated_date: timestamp(),
         cover: s.image().optional(),        // input image relative path, output image object with blurImage.
         description: s.string().max(99).optional(),
         metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
