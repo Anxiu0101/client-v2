@@ -47,7 +47,7 @@ const generateSlug = (title: string, date: string) => {
 
 const computedFields = <T extends {
     title: string,
-    created_date: string,
+    date: string,
     // description: string,
     // excerpt: string | undefined,
 }>(data: T) => {
@@ -60,7 +60,7 @@ const computedFields = <T extends {
     //     data.excerpt = ""
     // }
 
-    const slugV = generateSlug(data.title, data.created_date)
+    const slugV = generateSlug(data.title, data.date)
 
     return {
         ...data,
@@ -73,13 +73,15 @@ const postBlogSchema = s.object({
         title: s.string().max(99), // Zod primitive type
         // slug: s.slug(),            // validate format, unique in posts collection
         // path: s.path(),                      // auto generate slug from file path
-        created_date: s.isodate(),                  // input Date-like string, output ISO Date string.
+        date: s.isodate(),                  // createdAt date, input Date-like string, output ISO Date string.
         updated_date: timestamp(),
+        author: s.string().default("Anxiu"),
         cover: s.image().optional(),        // input image relative path, output image object with blurImage.
         description: s.string().max(99).optional(),
         metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
         excerpt: s.excerpt(),   // excerpt of markdown content
         content: s.mdx(),       // parse mdx file.
+        raw: s.raw(),
         toc: s.toc(),           // transform markdown to table of content.
         tags: s.array(s.string()).default([]),  // blog tags, array[string]
         published: s.boolean().default(false),  // publish or not, boolean value.

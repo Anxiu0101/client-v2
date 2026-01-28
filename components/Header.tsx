@@ -4,13 +4,8 @@ import { Moon, Sun, Menu, X, Search } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-
-const navItems = [
-  { label: 'Tech', href: '/tech' },
-  { label: 'Book', href: '/book' },
-  { label: 'Life', href: '/life' },
-  { label: 'About Me', href: '/about' },
-];
+import Link from "next/link";
+import { BlogNavigationMenu } from "@/components/navigation-menu";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -21,27 +16,13 @@ export function Header() {
       <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <span className="font-semibold">Anxiu.Info</span>
-            {/*<span className="hidden sm:inline-flex gap-1">*/}
-            {/*  <span className="text-[#3b82f6]">0</span>*/}
-            {/*  <span className="text-[#10b981]">1</span>*/}
-            {/*  <span className="text-[#f59e0b]">0</span>*/}
-            {/*  <span className="text-[#ef4444]">1</span>*/}
-            {/*</span>*/}
-          </a>
+          <Link href="#" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span className="font-bold">Anxiu.Info</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-sm hover:opacity-60 transition-opacity"
-              >
-                {item.label}
-              </a>
-            ))}
+            <BlogNavigationMenu/>
             <Button
                 variant="ghost"
                 size="sm"
@@ -93,16 +74,7 @@ export function Header() {
         {mobileMenuOpen && (
           <nav className="md:hidden border-t border-border/40 py-4">
             <div className="flex flex-col gap-3">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-sm hover:opacity-60 transition-opacity py-1"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              <BlogNavigationMenu/>
             </div>
           </nav>
         )}
