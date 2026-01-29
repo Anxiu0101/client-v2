@@ -89,22 +89,20 @@ export default function BlogPost() {
                     </div>
 
                     {/* Navigation - 改造点6：优化导航间距+移动端触摸反馈 */}
-                    <div className="mt-8 sm:mt-10">
+                    <div className="mt-8 sm:mt-10 active:opacity-80 transition-opacity duration-200">
                         <BlogPostNavigation
                             previousPost={{
                                 title: 'Previous Post',
                                 href: '#',
                             }}
-                            className="active:opacity-80 transition-opacity duration-200"
                         />
                     </div>
                 </article>
 
                 {/* Sidebar - Table of Contents - 改造点7：侧边栏移动端适配，优化宽度与视觉 */}
-                <div className="w-full lg:w-64 lg:sticky lg:top-8 self-start">
+                <div className="w-full lg:w-64 lg:sticky lg:top-8 self-start px-3 sm:px-0 py-2 sm:py-0 border sm:border-0 border-gray-200 dark:border-gray-700 rounded-lg sm:rounded-none">
                     <TableOfContents
                         items={tocItems}
-                        className="w-full px-3 sm:px-0 py-2 sm:py-0 border sm:border-0 border-gray-200 dark:border-gray-700 rounded-lg sm:rounded-none"
                     />
                 </div>
             </div>

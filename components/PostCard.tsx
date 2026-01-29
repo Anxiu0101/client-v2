@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 interface PostCardProps {
   title: string;
-  summary: string;
+  description: string;
   date: string;
   readTime: string;
   author: string;
@@ -9,7 +11,7 @@ interface PostCardProps {
 
 export function PostCard({
   title,
-  summary,
+  description,
   date,
   readTime,
   author,
@@ -22,7 +24,7 @@ export function PostCard({
           {title}
         </h2>
         <div className="text-sm text-muted-foreground mb-3">
-          {summary}
+          {description}
         </div>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <time>{date}</time>
@@ -33,15 +35,18 @@ export function PostCard({
         </div>
         {tags && tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-3">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs text-muted-foreground hover:opacity-60 transition-opacity"
-              >
-                #{tag}
-              </span>
+            {tags.map((tag: string) => (
+                <Link href={"/tags/" + tag} key={tag}>
+                  <span
+                      key={tag}
+                      className="text-xs text-muted-foreground hover:opacity-60 transition-opacity"
+                  >
+                    #{tag}
+                  </span>
+                </Link>
             ))}
           </div>
+        //     TODO: <Badge variant="outline">Outline</Badge> Using Outline Badge in shadcn-ui instead.
         )}
       </a>
     </article>
