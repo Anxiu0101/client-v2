@@ -1,47 +1,72 @@
-import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface TocItem {
-  id: string;
+export type TocItem = {
   title: string;
-  level: number;
-}
+  url: string;
+  items: TocItem[]
+};
 
-interface TableOfContentsProps {
+export type TableOfContentsProps = {
   items: TocItem[];
+  layoutMode?: 'default' | 'toolbox';
 }
 
-export function TableOfContents({ items }: TableOfContentsProps) {
-  return (
-    <aside className="w-full lg:w-64 shrink-0">
-      <div className="sticky top-4 space-y-6">
-        {/* Search */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search"
-            className="pl-9 h-9 text-sm"
-          />
-        </div>
+export type TOCListProps = {
+  items: TocItem[];
+  depth: number;
+};
 
-        {/* Table of Contents */}
-        <div>
-          <h3 className="font-semibold mb-3">Table of Content</h3>
-          <nav className="space-y-2 text-sm">
-            {items.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className="block hover:opacity-60 transition-opacity"
-                style={{ paddingLeft: `${(item.level - 2) * 12}px` }}
-              >
-                {item.title}
-              </a>
+// 递归渲染，最多两层深度
+function TOCList ({items, depth=0}: TOCListProps) {
+    if (!items || items.length === 0 || depth > 1) return null;
+    return (
+        <ul className="pl-4 text-sm">
+            {items.map((it) => (
+                <li key={it.url} className="mb-1">
+                    <a href={it.url} className="text-sm font-medium text-slate-700 dark:text-slate-200">
+                        {it.title}
+                    </a>
+                    {it.items && it.items.length > 0 && (
+                        <TOCList items={it.items} depth={depth + 1} />
+                    )}
+                </li>
             ))}
-          </nav>
-        </div>
-      </div>
-    </aside>
+        </ul>
+    );
+};
+
+// TableOfContents 组件暴露
+export function TableOfContents({ items, layoutMode = 'default' }: TableOfContentsProps) {
+  // toolbox 模式下使用 Card 的“sm”尺寸已在页内容器应用，保持一致风格
+  const content = (
+    <Card className="h-full w-full">
+      <CardHeader className="px-4 py-3">Table of Contents</CardHeader>
+      <CardContent className="p-0">
+        <ScrollArea className="h-full pr-2" type="scroll">
+          <div className="p-2">
+            <TOCList items={items} depth={0} />
+          </div>
+        </ScrollArea>
+      </CardContent>
+    </Card>
   );
-}
+
+  if (layoutMode === 'toolbox') {
+    // toolbox 风格：直接返回带卡片风格的容器，外部容器已提供 Card 封装时，使用 sm 尺寸的 Card 以实现一致性
+    return (
+      <Card size="sm" className="w-full">
+        <CardContent className="p-0">
+          <ScrollArea className="h-full pr-2" type="scroll">
+            <div className="p-2">
+              <TOCList items={items} depth={0} />
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // 默认布局：保持原有的 Card 结构
+  return content;
+};
