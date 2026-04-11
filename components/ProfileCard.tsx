@@ -1,9 +1,11 @@
-import { Github, Rss } from 'lucide-react';
+import { Icons } from '@/components/icons'
+import { siteConfig } from '@/config/site'
+import Link from "next/link";
 
 export function ProfileCard() {
   return (
     <div className="py-8 border-b border-border/40">
-      <h1 className="text-4xl mb-3">PaperMod</h1>
+      <h1 className="text-4xl mb-3">{siteConfig.name}</h1>
       <div className="text-muted-foreground space-y-1 mb-4">
         <p>
           Welcome to demo of Hugo&apos;s theme PaperMod.{' '}
@@ -14,34 +16,36 @@ export function ProfileCard() {
         </p>
         <p>
           Do give a 🌟 on{' '}
-          <a href="#" className="underline hover:opacity-60 transition-opacity">
+          <Link
+              href={siteConfig.links.github}
+              className="underline hover:opacity-60 transition-opacity">
             GitHub
-          </a>
+          </Link>
           !
         </p>
         <p>
           PaperMod is based on theme{' '}
-          <a href="#" className="underline hover:opacity-60 transition-opacity">
+          <Link href="#" className="underline hover:opacity-60 transition-opacity">
             Paper
-          </a>
+          </Link>
           .
         </p>
       </div>
       <div className="flex items-center gap-3">
-        <a
-          href="#"
+        <Link
+          href={siteConfig.links.github}
           className="hover:opacity-60 transition-opacity"
           aria-label="GitHub"
         >
-          <Github className="h-5 w-5" />
-        </a>
-        <a
-          href="#"
+          <Icons.gitHub className="h-5 w-5" />
+        </Link>
+        <Link
+          href="/rss"
           className="hover:opacity-60 transition-opacity"
           aria-label="RSS"
         >
-          <Rss className="h-5 w-5" />
-        </a>
+          <Icons.rss className="h-5 w-5" />
+        </Link>
       </div>
     </div>
   );

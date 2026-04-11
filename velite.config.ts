@@ -48,23 +48,25 @@ const generateSlug = (title: string, date: string) => {
 const computedFields = <T extends {
     title: string,
     date: string,
-    // description: string,
-    // excerpt: string | undefined,
+    description: string,
+    excerpt: string,
 }>(data: T) => {
-    // FIXME 写法太丑陋
-    // if (!data.description) {
-    //     if (!data.excerpt) {
-    //         data.description = ""
-    //     }
-    //     data.description = data.excerpt as string
-    //     data.excerpt = ""
-    // }
+
+    if (!data.description) {
+        if (!data.excerpt) {
+            data.description = ""
+        }
+        data.description = data.excerpt as string;
+        data.excerpt = ""
+    }
 
     const slugV = generateSlug(data.title, data.date)
+    const createdAt = data.date
 
     return {
         ...data,
         slug: slugV,
+        created_date: createdAt,
         permalink: `/posts/${slugV}`,
     }
 }
@@ -77,7 +79,7 @@ const postBlogSchema = s.object({
         updated_date: timestamp(),
         author: s.string().default("Anxiu"),
         cover: s.image().optional(),        // input image relative path, output image object with blurImage.
-        description: s.string().max(99).optional(),
+        description: s.string().max(99).default(""),
         metadata: s.metadata(), // extract markdown reading-time, word-count, etc.
         excerpt: s.excerpt(),   // excerpt of markdown content
         content: s.mdx(),       // parse mdx file.

@@ -1,54 +1,117 @@
-import Link from "next/link";
+"use client";
 
-interface PostCardProps {
+import Link from "next/link";
+import { format } from "date-fns";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardAction, CardContent, CardHeader} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { BlogTag } from "@/components/blog/blog-tag";
+
+
+export type PostCardProps = {
   title: string;
   description: string;
   date: string;
-  readTime: string;
+  readingTime: number;
   author: string;
-  tags?: string[];
-}
+  tags: string[];
+  permalink: string;
+};
 
 export function PostCard({
   title,
   description,
   date,
-  readTime,
+  readingTime,
   author,
   tags,
+  permalink,
 }: PostCardProps) {
+
+  const formattedDate = format(new Date(date), "yyyy-MM-dd");
+  const readTime = `${readingTime} min`;
+
   return (
-    <article className="border border-border/40 rounded-lg p-6 hover:border-border transition-colors">
-      <a href="#" className="block">
-        <h2 className="text-xl mb-2 hover:opacity-60 transition-opacity">
-          {title}
-        </h2>
-        <div className="text-sm text-muted-foreground mb-3">
-          {description}
-        </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <time>{date}</time>
-          <span>·</span>
-          <span>{readTime}</span>
-          <span>·</span>
-          <span>{author}</span>
-        </div>
-        {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
-            {tags.map((tag: string) => (
-                <Link href={"/tags/" + tag} key={tag}>
-                  <span
-                      key={tag}
-                      className="text-xs text-muted-foreground hover:opacity-60 transition-opacity"
-                  >
-                    #{tag}
-                  </span>
-                </Link>
-            ))}
+      <Card className="h-full border-border/40 hover:border-border transition-colors cursor-pointer">
+
+
+        {/* FIXME <Link href={permalink} className="block h-full no-underline">*/}
+
+          <CardHeader className="gap-0 pb-0">
+            <CardAction>
+              <Badge variant="secondary">Public</Badge>
+            </CardAction>
+            <Link href={permalink}>
+              <h2 className="text-xl mb-2 hover:opacity-60 transition-opacity text-foreground">
+                {title}
+              </h2>
+            </Link>
+          </CardHeader>
+
+          <CardContent className="gap-0 pb-0">
+            <Link href={permalink}>
+            {/* FIXME <Link href={permalink} className="block h-full no-underline">*/}
+              <p className="text-sm text-muted-foreground mb-3">
+                {description}
+              </p>
+            </Link>
+
+            {/* Metadata of Blog */}
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+              <time dateTime={date}>{formattedDate}</time>
+              <span>·</span>
+              <span>{readTime}</span>
+              <span>·</span>
+              <span>{author}</span>
+            </div>
+
+            {tags && tags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                      <BlogTag key={tag} tagid={tag}/>
+                  ))}
+                </div>
+            )}
+          </CardContent>
+
+      </Card>
+  );
+}
+
+
+export function PostCardSkeleton() {
+  return (
+      <Card className="h-full border-border/40">
+        <CardHeader className="p-6 pb-2">
+          <Skeleton className="h-6 w-3/4 rounded-md" />
+        </CardHeader>
+        <CardContent className="p-6 pt-0">
+          <Skeleton className="h-4 w-full rounded-md mb-2" />
+          <Skeleton className="h-4 w-4/5 rounded-md mb-3" />
+          <div className="flex items-center gap-2 text-xs mb-3">
+            <Skeleton className="h-3 w-20 rounded-md" />
+            <Skeleton className="h-3 w-1 rounded-md" />
+            <Skeleton className="h-3 w-16 rounded-md" />
+            <Skeleton className="h-3 w-1 rounded-md" />
+            <Skeleton className="h-3 w-24 rounded-md" />
           </div>
-        //     TODO: <Badge variant="outline">Outline</Badge> Using Outline Badge in shadcn-ui instead.
-        )}
-      </a>
-    </article>
+          <div className="flex flex-wrap gap-2">
+            <Skeleton className="h-6 w-16 rounded-full" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+          </div>
+        </CardContent>
+      </Card>
+  );
+}
+
+export function PostCardSkeletonList({ count = 7 }: { count?: number }) {
+  return (
+      <div className="space-y-4">
+        {Array.from({ length: count }).map((_, idx) => (
+            <div key={idx}>
+              <PostCardSkeleton />
+            </div>
+        ))}
+      </div>
   );
 }

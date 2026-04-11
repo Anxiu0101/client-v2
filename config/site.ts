@@ -8,5 +8,6 @@ export const siteConfig: SiteConfig = {
     // ogImage: "https://tx.shadcn.com/og.jpg",
     links: {
         github: "https://github.com/Anxiu0101",
+        feed: "https://localhost:3000/rss/sitemap.xml"
     },
 }

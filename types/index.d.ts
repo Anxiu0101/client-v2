@@ -33,6 +33,7 @@ export type SiteConfig = {
     // ogImage: string
     links: {
         github: string
+        feed: string
     }
 }
 
