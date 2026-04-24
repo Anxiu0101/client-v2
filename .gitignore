@@ -46,3 +46,5 @@ next-env.d.ts
 # velite content collection
 /.velite
 /public/static
+# Oh My OpenCode local config (Windows/macOS/Linux)
+**/.oh-my-opencode/config.json

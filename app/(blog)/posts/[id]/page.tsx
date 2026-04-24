@@ -32,10 +32,13 @@ export default function BlogPost() {
     return (
         // 新布局：顶层阅读盒 + 文章内容盒
         <div className="reading-layout mx-auto max-w-screen-lg px-4 py-6">
-            <TableOfContents items={tocItems} layoutMode="toolbox" />
+
             <main className="content max-w-prose mx-auto">
                 {/* Title - 保持原有样式与文本结构 */}
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">Blog Title</h1>
+
+                <TableOfContents items={tocItems}/>
+
                 <div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">
                     <p>
                         Accusam nonumy ea faugait invidunt erat dolor. Amet ex amet volutpat sadipscing sit duis tincidunt augue sea aliquyam dolore. Vel tempor voluptua eum et et. Vel dolor dolor invidunt sanctus ea amet esse est ipsum vero amet vero.

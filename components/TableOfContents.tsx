@@ -9,7 +9,6 @@ export type TocItem = {
 
 export type TableOfContentsProps = {
   items: TocItem[];
-  layoutMode?: 'default' | 'toolbox';
 }
 
 export type TOCListProps = {
@@ -37,36 +36,16 @@ function TOCList ({items, depth=0}: TOCListProps) {
 };
 
 // TableOfContents 组件暴露
-export function TableOfContents({ items, layoutMode = 'default' }: TableOfContentsProps) {
-  // toolbox 模式下使用 Card 的“sm”尺寸已在页内容器应用，保持一致风格
-  const content = (
-    <Card className="h-full w-full">
-      <CardHeader className="px-4 py-3">Table of Contents</CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea className="h-full pr-2" type="scroll">
-          <div className="p-2">
-            <TOCList items={items} depth={0} />
-          </div>
-        </ScrollArea>
-      </CardContent>
-    </Card>
-  );
-
-  if (layoutMode === 'toolbox') {
-    // toolbox 风格：直接返回带卡片风格的容器，外部容器已提供 Card 封装时，使用 sm 尺寸的 Card 以实现一致性
+export function TableOfContents({ items }: TableOfContentsProps) {
     return (
-      <Card size="sm" className="w-full">
-        <CardContent className="p-0">
-          <ScrollArea className="h-full pr-2" type="scroll">
-            <div className="p-2">
-              <TOCList items={items} depth={0} />
-            </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
+        <Card size="sm" className="w-full">
+            <CardContent className="p-0">
+                <ScrollArea className="h-full pr-2" type="scroll">
+                    <div className="p-2">
+                        <TOCList items={items} depth={0} />
+                    </div>
+                </ScrollArea>
+            </CardContent>
+        </Card>
     );
-  }
-
-  // 默认布局：保持原有的 Card 结构
-  return content;
-};
+}
