@@ -1,9 +1,12 @@
+import React from "react";
 import {TableOfContents, TocItem } from '@/components/TableOfContents';
 import { BlogPostMeta } from '@/components/BlogPostMeta';
 import { BlogPostNavigation } from '@/components/BlogPostNavigation';
-import { Card, CardContent } from '@/components/ui/card';
+import { techBlog } from "velite-generate";
+import { MDXContent } from "@/components/mdx/mdx-content";
 
-const tocItems: TocItem[] = [
+// Example structure of tocItems
+const tocItemsDefault: TocItem[] = [
     {
         "title": "Interface 接口",
         "url": "#interface-接口",
@@ -27,27 +30,30 @@ const tocItems: TocItem[] = [
     }
 ]
 
-export default function BlogPost() {
+interface BlogPostProps {
+    slug: string;
+}
 
+// export default function BlogPost({ params }: { params: { slug: string }}) {
+export default function BlogPost( params: BlogPostProps) {
+    console.log(params.slug)
+    const post = techBlog.find((p) => p.slug === params.slug)
+    console.log(post)
+    // const tocItems: TocItem[] = post.toc | tocItemsDefault
     return (
         // 新布局：顶层阅读盒 + 文章内容盒
         <div className="reading-layout mx-auto max-w-screen-lg px-4 py-6">
 
             <main className="content max-w-prose mx-auto">
                 {/* Title - 保持原有样式与文本结构 */}
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">Blog Title</h1>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
 
-                <TableOfContents items={tocItems}/>
+                <TableOfContents items={tocItemsDefault}/>
 
-                <div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">
-                    <p>
-                        Accusam nonumy ea faugait invidunt erat dolor. Amet ex amet volutpat sadipscing sit duis tincidunt augue sea aliquyam dolore. Vel tempor voluptua eum et et. Vel dolor dolor invidunt sanctus ea amet esse est ipsum vero amet vero.
-                    </p>
-                    <p>
-                        Sit accusam dolore et clita clita est adipiscing dolores. Autem amet rebum lorem ipsum ipsum duo. Ut lius no dolor magna lorem duo rebum. Consetetur duo tempor dolore ipsum. Sit duis lorem sit accusam sea et dolor illum. Euismod augue in dolores velit lorem kasd ullamcorper kasd labore est. Kasd et nisl nisl et praesent eros sed clita et ea tempor labore eros faugiat dignissim. Ulta et duo sed ipsum amet vero est dolore.
-                    </p>
-                    {/* ... 其余文章内容沿用原有结构 ... */}
-                </div>
+                {/*<div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">*/}
+                {/*</div>*/}
+                <MDXContent code={post.content} components={{}} />
+
                 {/* Tags and Metadata */}
                 <div className="mt-6 sm:mt-8">
                     <BlogPostMeta
@@ -71,3 +77,5 @@ export default function BlogPost() {
         </div>
     );
 }
+
+
