@@ -33,7 +33,7 @@ function TOCList ({items, depth=0}: TOCListProps) {
             ))}
         </ul>
     );
-};
+}
 
 // TableOfContents 组件暴露
 export function TableOfContents({ items }: TableOfContentsProps) {
@@ -44,6 +44,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
 
     return (
         <Card size="sm" className="w-full">
+            <CardHeader>Table of Content</CardHeader>
             <CardContent className="p-0">
                 <ScrollArea className="h-full pr-2" type="scroll">
                     <div className="p-2">
