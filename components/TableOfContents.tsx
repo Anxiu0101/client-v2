@@ -37,6 +37,11 @@ function TOCList ({items, depth=0}: TOCListProps) {
 
 // TableOfContents 组件暴露
 export function TableOfContents({ items }: TableOfContentsProps) {
+    // 如果没有项，直接返回 null，TableOfContents 组件不渲染任何 DOM
+    if (!items || items.length === 0) {
+        return null
+    }
+
     return (
         <Card size="sm" className="w-full">
             <CardContent className="p-0">

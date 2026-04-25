@@ -1,4 +1,5 @@
 import { Tag, Calendar, User, Eye } from 'lucide-react';
+import { format } from "date-fns";
 
 interface BlogPostMetaProps {
   tags: string[];
@@ -48,7 +49,7 @@ export function BlogPostMeta({ tags, author, date, views, url }: BlogPostMetaPro
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4" />
           <span>发布于</span>
-          <span>{date}</span>
+          <span suppressHydrationWarning>{format(new Date(date), 'yyyy-MM-dd HH:mm')}</span>
         </div>
         {views && (
           <div className="flex items-center gap-2">
