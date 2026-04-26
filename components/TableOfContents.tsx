@@ -7,10 +7,6 @@ export type TocItem = {
   items: TocItem[]
 };
 
-export type TableOfContentsProps = {
-  items: TocItem[];
-}
-
 export type TOCListProps = {
   items: TocItem[];
   depth: number;
@@ -33,6 +29,10 @@ function TOCList ({items, depth=0}: TOCListProps) {
             ))}
         </ul>
     );
+}
+
+export type TableOfContentsProps = {
+    items: TocItem[];
 }
 
 // TableOfContents 组件暴露

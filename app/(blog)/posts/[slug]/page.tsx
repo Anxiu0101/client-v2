@@ -1,15 +1,20 @@
 import React from "react";
-import { TableOfContents, TocItem } from '@/components/TableOfContents';
-import { BlogPostMeta } from '@/components/BlogPostMeta';
-import { BlogPostNavigation } from '@/components/BlogPostNavigation';
-import { techBlog } from "velite-generate";
-import { MDXContent } from "@/components/mdx/mdx-content";
-import { siteConfig } from "@/config/site";
-import { notFound } from "next/navigation";
+import {TableOfContents, TocItem} from '@/components/TableOfContents';
+import {BlogPostMeta} from '@/components/BlogPostMeta';
+import {BlogPostNavigation} from '@/components/BlogPostNavigation';
+import {Tech, techBlog} from "velite-generate";
+import {MDXContent} from "@/components/mdx/mdx-content";
+import {siteConfig} from "@/config/site";
+import {notFound} from "next/navigation";
 
-export default async function BlogPost( props: PageProps<'/posts/[slug]'>) {
+function getTechPostBySlug(posts: Tech[],slug: string) {
+    return posts.find((p) => p.slug === slug)
+}
+
+export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     const { slug } = await props.params
-    const post = techBlog.find((p) => p.slug === slug)
+    const post = getTechPostBySlug(techBlog, slug)
+
     if (!post) {
         notFound()
     }
@@ -52,6 +57,13 @@ export default async function BlogPost( props: PageProps<'/posts/[slug]'>) {
         </div>
     );
 }
+
+
+export function generateStaticParams() {
+    return techBlog.map(({ slug }) => ({ slug }))
+}
+
+// TODO 封装 https://velite.js.org/guide/using-collections#data-accessor
 
 // Example structure of tocItems
 // const tocItemsDefault: TocItem[] = [
