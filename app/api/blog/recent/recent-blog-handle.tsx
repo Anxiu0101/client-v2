@@ -1,5 +1,5 @@
 import { z } from "zod";
-import {Tech, Book, Life} from "velite-generate";
+import { PostBlog } from "velite-generate";
 
 type BlogInfo = {
     title: string;
@@ -14,9 +14,7 @@ type BlogInfo = {
 }
 
 export interface RecentBlogHandleProps {
-    rawTech: Tech,
-    rawBook: Book,
-    rawLife: Life,
+    rawPost: PostBlog,
 }
 
 // export function RecentBlogHandle(posts: RecentBlogHandleProps): BlogInfo[] {

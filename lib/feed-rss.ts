@@ -1,6 +1,6 @@
 // lib/feed-rss.ts
 import { Feed } from "feed";
-import { techBlog, bookBlog, lifeBlog } from "velite-generate";
+import { posts } from "velite-generate";
 
 // 博客全局配置（请替换为你的实际信息）
 const BLOG_GLOBAL_CONFIG = {
@@ -35,9 +35,7 @@ export function generateMultiFormatRss() {
 
     // 2. 合并并过滤所有已发布的博客文章（按发布时间倒序）
     const allPublishedPosts = [
-        ...techBlog.filter((post) => post.published),
-        ...bookBlog.filter((post) => post.published),
-        ...lifeBlog.filter((post) => post.published),
+        ...posts.filter((post) => post.published),
     ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     // 3. 为每篇文章添加到 Feed 中

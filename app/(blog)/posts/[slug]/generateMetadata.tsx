@@ -1,18 +1,9 @@
 // Dynamic SEO Injection
-import {Tech, techBlog} from "velite-generate";
+import { getPostBySlug } from "@/lib/velite";
 
-interface BlogPostProps {
-    params: {
-        slug: string,
-    },
-}
-
-function getTechPostBySlug(posts: Tech[],slug: string) {
-    return posts.find((p) => p.slug === slug)
-}
-
-export function generateMetadata({params}: BlogPostProps) {
-    const post = getTechPostBySlug(techBlog, params.slug)
+export async function generateMetadata(props: PageProps<'/posts/[slug]'>) {
+    const { slug } = await props.params
+    const post = getPostBySlug(slug)
     if (post == null) return {}
     return {title: post.title, description: post.description}
 }

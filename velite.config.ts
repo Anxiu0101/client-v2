@@ -50,6 +50,7 @@ const computedFields = <T extends {
     date: string,
     description: string,
     excerpt: string,
+    path: string,
 }>(data: T) => {
 
     if (!data.description) {
@@ -62,19 +63,21 @@ const computedFields = <T extends {
 
     const slugV = generateSlug(data.title, data.date)
     const createdAt = data.date
+    const categoryV = data.path.split('/')[0]
 
     return {
         ...data,
         slug: slugV,
         created_date: createdAt,
         permalink: `/posts/${slugV}`,
+        category: categoryV,
     }
 }
 
 const postBlogSchema = s.object({
         title: s.string().max(99), // Zod primitive type
         // slug: s.slug(),            // validate format, unique in posts collection
-        // path: s.path(),                      // auto generate slug from file path
+        path: s.path(),                      // auto generate slug from file path
         date: s.isodate(),                  // createdAt date, input Date-like string, output ISO Date string.
         updated_date: timestamp(),
         author: s.string().default("Anxiu"),
@@ -94,30 +97,30 @@ const postBlogSchema = s.object({
     // recover slug unique validation, bases on auto generate slug.
     .refine(data => data.slug, 'slug cannot be null')
 
-const techBlog = defineCollection({
-    name: 'Tech', // collection type name
-    pattern: 'tech/**/*.mdx', // content files glob pattern
+const posts = defineCollection({
+    name: 'PostBlog', // collection type name
+    pattern: '**/*.mdx', // content files glob pattern
     schema: postBlogSchema
 })
 
-const bookBlog = defineCollection({
-    name: 'Book', // collection type name
-    pattern: 'book/**/*.mdx', // content files glob pattern
-    schema: postBlogSchema
-})
-
-const lifeBlog = defineCollection({
-    name: 'Life', // collection type name
-    pattern: 'life/**/*.mdx', // content files glob pattern
-    schema: postBlogSchema
-})
+// const bookBlog = defineCollection({
+//     name: 'Book', // collection type name
+//     pattern: 'book/**/*.mdx', // content files glob pattern
+//     schema: postBlogSchema
+// })
+//
+// const lifeBlog = defineCollection({
+//     name: 'Life', // collection type name
+//     pattern: 'life/**/*.mdx', // content files glob pattern
+//     schema: postBlogSchema
+// })
 
 // transformerCopyButton support Copy Button for code block
 // TODO https://velite.js.org/guide/code-highlighting#copy-button
 
 export default defineConfig({
     root: "content",
-    collections: { techBlog, bookBlog, lifeBlog },
+    collections: { posts },
     mdx: {
         rehypePlugins: [
             rehypeSlug,
