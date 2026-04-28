@@ -1,5 +1,6 @@
 import { Tag, Calendar, User, Eye } from 'lucide-react';
 import { format } from "date-fns";
+import Link from "next/link";
 
 interface BlogPostMetaProps {
   tags: string[];
@@ -30,12 +31,12 @@ export function BlogPostMeta({ tags, author, date, views, url }: BlogPostMetaPro
       {url && (
         <div className="text-sm">
           <div className="text-muted-foreground mb-1">原文链接</div>
-          <a
+          <Link
             href={url}
             className="text-blue-600 dark:text-blue-400 hover:underline break-all"
           >
             {url}
-          </a>
+          </Link>
         </div>
       )}
 

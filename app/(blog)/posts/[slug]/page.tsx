@@ -36,7 +36,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                         author={post.author}
                         date={post.date}
                         views="157"
-                        url={siteConfig.url+post.permalink}
+                        url={post.refLink ? post.refLink : (siteConfig.url + post.permalink)}
                     />
                 </div>
                 {/* Navigation */}

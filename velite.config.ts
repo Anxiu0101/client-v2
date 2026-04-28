@@ -94,6 +94,7 @@ const postBlogSchema = s.object({
         published: s.boolean().default(false),  // publish or not, boolean value.
         draft: s.boolean().default(false),
         comments: s.boolean().default(false),   // enable github comment or not.
+        refLink: s.string().optional(),
     })
     // more additional fields (computed fields)
     .transform(computedFields)
