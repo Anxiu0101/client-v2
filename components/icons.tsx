@@ -18,20 +18,23 @@ import {
     MoreVertical,
     Pizza,
     Plus,
+    Sun,
     Settings,
     SunMedium,
+    Search,
     Trash,
     Rss,
-    Twitter,
     User,
-    X,
+    Twitter,
+    X, Menu,
 } from "lucide-react"
+import Link from "next/link";
 
 export type Icon = LucideIcon
 
 export const Icons = {
     logo: Command,
-    close: X,
+    x: X,
     spinner: Loader2,
     chevronLeft: ChevronLeft,
     chevronRight: ChevronRight,
@@ -39,7 +42,10 @@ export const Icons = {
     post: FileText,
     page: File,
     media: Image,
+    menu: Menu,
     settings: Settings,
+    sun: Sun,
+    search: Search,
     billing: CreditCard,
     ellipsis: MoreVertical,
     add: Plus,
@@ -48,7 +54,7 @@ export const Icons = {
     arrowRight: ArrowRight,
     help: HelpCircle,
     pizza: Pizza,
-    sun: SunMedium,
+    // sun: SunMedium,
     moon: Moon,
     laptop: Laptop,
     rss: Rss,
@@ -71,4 +77,12 @@ export const Icons = {
     ),
     twitter: Twitter,
     check: Check,
+}
+
+export function AnxiuInfoLogo() {
+    return (
+        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <span className="font-bold">Anxiu.Info</span>
+        </Link>
+    )
 }
