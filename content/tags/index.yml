@@ -1,5 +1,6 @@
 - name: Code
   slug: code
+  description: Programming relative content, including Development, Deployment, Software Recommend, Security, etc.
 
 - name: Python
   slug: python

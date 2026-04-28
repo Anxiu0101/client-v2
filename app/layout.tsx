@@ -8,10 +8,9 @@ import {
 } from "@/lib/fonts";
 import "./globals.css";
 
-// 导入 Blog 布局中需要的功能性组件
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "@/components/layout/theme-provider";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 
 export const metadata: Metadata = {
     title: "Anxiu.Info Personal Blog",
