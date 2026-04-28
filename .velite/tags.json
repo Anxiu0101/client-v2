@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Code",
+    "slug": "code",
+    "count": {
+      "total": 3,
+      "posts": 3
+    },
+    "permalink": "/tags/code"
+  },
+  {
+    "name": "Python",
+    "slug": "python",
+    "count": {
+      "total": 1,
+      "posts": 1
+    },
+    "permalink": "/tags/python"
+  },
+  {
+    "name": "Design-Pattern",
+    "slug": "design-pattern",
+    "count": {
+      "total": 1,
+      "posts": 1
+    },
+    "permalink": "/tags/design-pattern"
+  },
+  {
+    "name": "Golang",
+    "slug": "Golang",
+    "permalink": "/tags/Golang",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "Java",
+    "slug": "Java",
+    "permalink": "/tags/Java",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  }
+]

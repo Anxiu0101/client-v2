@@ -1,0 +1,8 @@
+- name: Code
+  slug: code
+
+- name: Python
+  slug: python
+
+- name: Design-Pattern
+  slug: design-pattern
