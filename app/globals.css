@@ -131,10 +131,18 @@
     color: var(--shiki-light);
     background-color: var(--shiki-light-bg);
   }
+  [data-rehype-pretty-code-figure] pre {
+    @apply whitespace-pre-wrap break-all md:break-normal;
+    word-wrap: break-word;
+  }
 
   .dark [data-rehype-pretty-code-figure] code,
   .dark [data-rehype-pretty-code-figure] span {
     color: var(--shiki-dark);
     background-color: var(--shiki-dark-bg);
+  }
+  .dark [data-rehype-pretty-code-figure] pre {
+    @apply whitespace-pre-wrap break-all md:break-normal;
+    word-wrap: break-word;
   }
 }

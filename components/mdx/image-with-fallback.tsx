@@ -50,7 +50,8 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
             alt={alt}
             className={className}
             style={style}
-            layout="fill"
+            width={800}
+            height={750}
             onError={handleError} // 绑定错误监听
             {...rest}
         />

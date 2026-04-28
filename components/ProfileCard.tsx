@@ -8,11 +8,7 @@ export function ProfileCard() {
       <h1 className="text-4xl mb-3">{siteConfig.name}</h1>
       <div className="text-muted-foreground space-y-1 mb-4">
         <p>
-          Welcome to demo of Hugo&apos;s theme PaperMod.{' '}
-          <a href="#" className="underline hover:opacity-60 transition-opacity">
-            PaperMod
-          </a>{' '}
-          is a simple but fast and responsive theme with useful feature-set that enhances UX.
+          欢迎来到安修(Anxiu, Anxiu0101)的个人博客。本站专注于分享计算机技术相关内容，包括但不限于软件开发、工具推荐、智能体与安全。
         </p>
         <p>
           Do give a 🌟 on{' '}
@@ -24,11 +20,7 @@ export function ProfileCard() {
           !
         </p>
         <p>
-          PaperMod is based on theme{' '}
-          <Link href="#" className="underline hover:opacity-60 transition-opacity">
-            Paper
-          </Link>
-          .
+          欢迎<Link href={"/about"}>联系我</Link>，互相学习与交流！
         </p>
       </div>
       <div className="flex items-center gap-3">

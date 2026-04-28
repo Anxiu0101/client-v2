@@ -8,10 +8,10 @@ import { cn } from "@/lib/utils";
 const sharedComponents = {
     // Add your global components here
     h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0" {...props}/>
+        <h2 className="scroll-m-20 border-b p-2 text-3xl font-semibold tracking-tight [&+p]:mt-4! first:mt-0" {...props}/>
     ),
     h3: (props: React.ComponentProps<'h3'>) => (
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight [&+p]:mt-4! *:[code]:text-2xl" {...props}/>
+        <h3 className="scroll-m-20 text-2xl p-1 font-semibold tracking-tight [&+p]:mt-4! *:[code]:text-2xl" {...props}/>
     ),
     // h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
     //     <h3
@@ -67,6 +67,30 @@ const sharedComponents = {
             />
         );
     },
+    a: ({ className, ...props }: React.ComponentProps<"a">) => (
+        <a
+            className={cn("font-medium text-blue-600 dark:text-blue-400 hover:underline break-all underline-offset-4", className)}
+            {...props}
+        />
+    ),
+    strong: ({ className, ...props }: ComponentPropsWithoutRef<'strong'>) => (
+        <strong className={cn("font-medium", className)} {...props} />
+    ),
+    ul: ({ className, ...props }: React.ComponentProps<"ul">) => (
+        <ul className={cn("my-3 ml-3 list-disc", className)} {...props} />
+    ),
+    ol: ({ className, ...props }: React.ComponentProps<"ol">) => (
+        <ol className={cn("my-3 ml-3 list-decimal", className)} {...props} />
+    ),
+    li: ({ className, ...props }: React.ComponentProps<"li">) => (
+        <li className={cn("mt-2", className)} {...props} />
+    ),
+    blockquote: ({ className, ...props }: React.ComponentProps<"blockquote">) => (
+        <blockquote
+            className={cn("mt-6 mb-4 border-l-2 pl-6", className)}
+            {...props}
+        />
+    ),
     img: (props: React.ComponentProps<typeof Image>) => (
         <ImageWithFallback {...props}/>
     )
