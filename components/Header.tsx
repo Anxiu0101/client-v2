@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { BlogNavigationMenu } from "@/components/navigation-menu";
 import { Icons, AnxiuInfoLogo } from "@/components/icons";
+import {ThemeToggle} from "@/components/layout/theme-toggle";
 
 export function Header() {
   const { theme, setTheme } = useTheme();
@@ -28,30 +29,12 @@ export function Header() {
               <Icons.search className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <span className="sr-only">Blog Search</span>
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="h-8 w-8 p-0"
-            >
-              <Icons.sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Icons.moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
+            <ThemeToggle/>
           </nav>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="h-8 w-8 p-0"
-            >
-              <Icons.sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Icons.moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
+            <ThemeToggle/>
             <Button
               variant="ghost"
               size="sm"
