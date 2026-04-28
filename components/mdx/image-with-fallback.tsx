@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import Image from 'next/image';
 
@@ -48,6 +50,7 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
             alt={alt}
             className={className}
             style={style}
+            layout="fill"
             onError={handleError} // 绑定错误监听
             {...rest}
         />

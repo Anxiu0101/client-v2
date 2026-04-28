@@ -144,7 +144,15 @@ export default defineConfig({
     mdx: {
         rehypePlugins: [
             rehypeSlug,
-            [rehypePrettyCode, { theme: "github-dark" }],
+            [
+                rehypePrettyCode,
+                {
+                    theme: {
+                        light: "one-light",
+                        dark: "one-dark-pro",
+                    }
+                }
+            ],
             [
                 rehypeAutolinkHeadings,
                 {

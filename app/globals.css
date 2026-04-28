@@ -124,4 +124,17 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /*!* 3. 如果插件使用的是同一套变量 (CSS Variables 模式) *!*/
+  [data-rehype-pretty-code-figure] code,
+  [data-rehype-pretty-code-figure] span {
+    color: var(--shiki-light);
+    background-color: var(--shiki-light-bg);
+  }
+
+  .dark [data-rehype-pretty-code-figure] code,
+  .dark [data-rehype-pretty-code-figure] span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
 }

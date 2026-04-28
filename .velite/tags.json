@@ -2,6 +2,7 @@
   {
     "name": "Code",
     "slug": "code",
+    "description": "Programming relative content, including Development, Deployment, Software Recommend, Security, etc.",
     "count": {
       "total": 3,
       "posts": 3
