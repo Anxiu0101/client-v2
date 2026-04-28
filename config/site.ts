@@ -1,7 +1,7 @@
 import { SiteConfig } from "types"
 
 export const siteConfig: SiteConfig = {
-    name: "anxiu-info",
+    name: "Anxiu-Info",
     description:
         "Anxiu(Anxiu0101) personal blog website builds by Next.js 16.",
     url: "http://localhost:3000",

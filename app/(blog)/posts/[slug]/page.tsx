@@ -17,11 +17,10 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     }
 
     return (
-        // 新布局：顶层阅读盒 + 文章内容盒
-        <div className="reading-layout mx-auto max-w-screen-lg px-4 py-6">
+        <div className="reading-layout mx-auto px-4 py-6">
 
-            <main className="content max-w-prose mx-auto">
-                {/* Title - 保持原有样式与文本结构 */}
+            <main className="content max-w-4xl mx-auto">
+
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
 
                 <TableOfContents items={post.toc}/>

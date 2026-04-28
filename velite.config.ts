@@ -12,6 +12,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { exec } from 'child_process'
 import { promisify } from 'util'
 
+const count = s.object({ total: s.number(), posts: s.number() }).default({ total: 0, posts: 0 })
+
 const execAsync = promisify(exec)
 
 // timestamp for last updated time by git timestamp.
@@ -90,6 +92,7 @@ const postBlogSchema = s.object({
         toc: s.toc(),           // transform markdown to table of content.
         tags: s.array(s.string()).default([]),  // blog tags, array[string]
         published: s.boolean().default(false),  // publish or not, boolean value.
+        draft: s.boolean().default(false),
         comments: s.boolean().default(false),   // enable github comment or not.
     })
     // more additional fields (computed fields)
@@ -103,24 +106,41 @@ const posts = defineCollection({
     schema: postBlogSchema
 })
 
-// const bookBlog = defineCollection({
-//     name: 'Book', // collection type name
-//     pattern: 'book/**/*.mdx', // content files glob pattern
-//     schema: postBlogSchema
-// })
-//
-// const lifeBlog = defineCollection({
-//     name: 'Life', // collection type name
-//     pattern: 'life/**/*.mdx', // content files glob pattern
-//     schema: postBlogSchema
-// })
-
 // transformerCopyButton support Copy Button for code block
 // TODO https://velite.js.org/guide/code-highlighting#copy-button
 
+const categories = defineCollection({
+    name: 'Category',
+    pattern: 'categories/*.yml',
+    schema: s
+        .object({
+            name: s.string().max(20),
+            slug: s.slug('global', ['admin', 'login']),
+            cover: s.image().optional(),
+            description: s.string().max(999).optional(),
+            count
+        })
+        .transform(data => ({ ...data, permalink: `/category/${data.slug}` }))
+})
+
+
+const tags = defineCollection({
+    name: 'Tag',
+    pattern: 'tags/index.yml',
+    schema: s
+        .object({
+            name: s.string().max(20),
+            slug: s.slug('global', ['admin', 'login']),
+            cover: s.image().optional(),
+            description: s.string().max(999).optional(),
+            count
+        })
+        .transform(data => ({ ...data, permalink: `/tags/${data.slug}` }))
+})
+
 export default defineConfig({
     root: "content",
-    collections: { posts },
+    collections: { posts, categories, tags },
     mdx: {
         rehypePlugins: [
             rehypeSlug,
@@ -136,5 +156,33 @@ export default defineConfig({
             ],
         ],
     },
+    prepare: ({ categories, tags, posts }) => {
+        const docs = posts.filter(i => process.env.NODE_ENV !== 'production' || !i.draft)
+
+        // missing categories, tags from posts or courses inlined
+        const categoriesFromDoc = Array.from(new Set(docs.flatMap(i => i.category))).filter(i => categories.find(j => j.name === i) == null)
+        categories.push(...categoriesFromDoc.map(name => ({ name, slug: slugify(name), permalink: '', count: { total: 0, posts: 0 } })))
+        for (const category of categories) {
+            category.count.posts = posts.filter(j => j.category.includes(category.name)).length
+            category.count.total = category.count.posts
+            category.permalink = `/category/${category.slug}`
+        }
+
+        const tagsFromDoc = Array.from(new Set(docs.flatMap(i => i.tags))).filter(i => tags.find(j => j.name === i) == null)
+        tags.push(...tagsFromDoc.map(name => ({ name, slug: slugify(name), permalink: '', count: { total: 0, posts: 0 } })))
+        for (const tag of tags) {
+            tag.count.posts = posts.filter(j => j.tags.includes(tag.name)).length
+            tag.count.total = tag.count.posts
+            tag.permalink = `/tags/${tag.slug}`
+        }
+
+        // push extra data to collections, it's ok!! but they are not type-safed
+        // Object.assign(collections, {
+        //   anything: { name: 'Anything', data: { name: 'Anything' } },
+        //   list: ['one', 'two', 'three']
+        // })
+
+        // return false // return false to prevent velite from writing data to disk
+    }
 })
 

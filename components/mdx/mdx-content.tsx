@@ -1,4 +1,5 @@
 import * as runtime from 'react/jsx-runtime'
+import React from "react";
 
 const sharedComponents = {
     // Add your global components here
@@ -6,8 +7,11 @@ const sharedComponents = {
 
 // parse the Velite generated MDX code into a React component function
 const useMDXComponent = (code: string) => {
-    const fn = new Function(code)
-    return fn({ ...runtime }).default
+    // FIXME Cannot cope with lazy load image.
+    return React.useMemo(() => {
+        const fn = new Function(code)
+        return fn({ ...runtime, ...React }).default
+    }, [code])
 }
 
 interface MDXProps {
@@ -17,6 +21,10 @@ interface MDXProps {
 
 // MDXContent component
 export const MDXContent = ({ code, components }: MDXProps) => {
-    const Component = useMDXComponent(code)
-    return <Component components={{ ...sharedComponents, ...components }} />
+    const MDXComponent = useMDXComponent(code)
+    return (
+        <React.Suspense fallback={<div>loading...</div>}>
+            <MDXComponent components={{ ...sharedComponents, ...components }} />
+        </React.Suspense>
+    )
 }
