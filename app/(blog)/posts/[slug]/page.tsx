@@ -1,8 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { TableOfContent } from '@/components/blog/table-of-content';
-import { BlogPostMeta } from '@/components/BlogPostMeta';
-import { BlogPostNavigation } from '@/components/BlogPostNavigation';
+import { PostMeta } from '@/components/blog/post-meta';
+import { PostNavigation } from '@/components/blog/post-navigation';
 import { posts } from "velite-generate";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { siteConfig } from "@/config/site";
@@ -34,8 +34,8 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                 <MDXContent code={post.content} components={{}} />
 
                 {/* Tags and Metadata */}
-                <div className="mt-6 sm:mt-8">
-                    <BlogPostMeta
+                <div className="mt-8">
+                    <PostMeta
                         tags={post.tags}
                         author={post.author}
                         date={post.date}
@@ -44,13 +44,8 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                     />
                 </div>
                 {/* Navigation */}
-                <div className="mt-8 sm:mt-10 active:opacity-80 transition-opacity duration-200">
-                    <BlogPostNavigation
-                        previousPost={{
-                            title: 'Previous Post',
-                            href: '#',
-                        }}
-                    />
+                <div className="active:opacity-80 transition-opacity duration-200">
+                    <PostNavigation currentSlug={slug} />
                 </div>
             </div>
         </div>

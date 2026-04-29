@@ -43,6 +43,11 @@ Personal blog site built with Next.js 16, shadcn/ui (New York style), and Velite
 - shadcn/ui registry path: `@/components/ui/`
 - Icon library: lucide-react
 - Content style: MDX with rehype-pretty-code for syntax highlighting
+- **Naming conventions:**
+  - File names: `kebab-case.tsx` (e.g. `post-toolbar.tsx`, `blog-info-sheet.tsx`)
+  - Component names: `PascalCase` named export (e.g. `PostToolbar`, `BlogInfoSheet`)
+  - Blog post components go in `components/blog/` with `post-` prefix (e.g. `post-meta.tsx`, `post-navigation.tsx`)
+  - Blog-wide components use `blog-` prefix (e.g. `blog-tag.tsx`, `blog-info-sheet.tsx`)
 
 ## Available Scripts
 
