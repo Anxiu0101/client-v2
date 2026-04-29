@@ -39,7 +39,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                         tags={post.tags}
                         author={post.author}
                         date={post.date}
-                        views="157"
+                        wordCount={post.metadata.wordCount}
                         url={post.refLink ? post.refLink : (siteConfig.url + post.permalink)}
                     />
                 </div>

@@ -8,11 +8,11 @@ interface PostMetaProps {
   tags: string[]
   author: string
   date: string
-  views?: string
+  wordCount?: number
   url?: string
 }
 
-export function PostMeta({ tags, author, date, views, url }: PostMetaProps) {
+export function PostMeta({ tags, author, date, wordCount, url }: PostMetaProps) {
   return (
     <Card size="sm">
       <CardContent className="space-y-4">
@@ -58,11 +58,11 @@ export function PostMeta({ tags, author, date, views, url }: PostMetaProps) {
               {format(new Date(date), "yyyy-MM-dd HH:mm")}
             </span>
           </div>
-          {views && (
+          {wordCount && (
             <div className="flex items-center gap-2">
               <Eye className="size-4 shrink-0" />
-              <span>浏览量</span>
-              <span className="text-foreground">{views}</span>
+              <span>词数</span>
+              <span className="text-foreground">{wordCount}</span>
             </div>
           )}
         </div>
