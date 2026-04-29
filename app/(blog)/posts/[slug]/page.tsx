@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { TableOfContents } from '@/components/TableOfContents';
+import { TableOfContent } from '@/components/blog/table-of-content';
 import { BlogPostMeta } from '@/components/BlogPostMeta';
 import { BlogPostNavigation } from '@/components/BlogPostNavigation';
 import { posts } from "velite-generate";
@@ -23,7 +23,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
 
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
 
-                <TableOfContents items={post.toc}/>
+                <TableOfContent items={post.toc}/>
 
                 {/*<div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">*/}
                 {/*</div>*/}

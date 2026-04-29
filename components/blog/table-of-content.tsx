@@ -1,5 +1,5 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardHeader, CardContent } from "components/ui/card";
+import { ScrollArea } from "components/ui/scroll-area";
 
 export type TocItem = {
   title: string;
@@ -36,7 +36,7 @@ export type TableOfContentsProps = {
 }
 
 // TableOfContents 组件暴露
-export function TableOfContents({ items }: TableOfContentsProps) {
+export function TableOfContent({ items }: TableOfContentsProps) {
     // 如果没有项，直接返回 null，TableOfContents 组件不渲染任何 DOM
     if (!items || items.length === 0) {
         return null
