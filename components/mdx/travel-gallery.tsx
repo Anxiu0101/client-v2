@@ -11,7 +11,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTrigger , DialogTitle} from "@/components/ui/dialog"
 
 interface TravelGalleryProps {
   images: string[]
@@ -22,7 +22,7 @@ interface TravelGalleryProps {
 export function TravelGallery({
   images,
   aspectRatio = 16 / 9,
-  autoplayInterval = 4000,
+  autoplayInterval = 6000,
 }: TravelGalleryProps) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -47,7 +47,7 @@ export function TravelGallery({
 
   return (
     <div className="my-6">
-      <Carousel setApi={setApi} className="w-full max-w-2xl mx-auto">
+      <Carousel setApi={setApi} opts={{ loop: true }} className="w-full max-w-2xl mx-auto">
         <CarouselContent>
           {images.map((src, i) => (
             <CarouselItem key={i}>
@@ -65,17 +65,16 @@ export function TravelGallery({
                     </AspectRatio>
                   </button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 bg-black/90 border-0">
-                  <div className="relative w-full h-full flex items-center justify-center p-2">
-                    <Image
-                      src={"/images/gallery/" + src}
-                      alt={`Image ${i + 1}`}
-                      width={1920}
-                      height={1080}
-                      className="max-w-full max-h-[85vh] object-contain rounded"
-                      sizes="90vw"
-                    />
-                  </div>
+                <DialogTitle>旅途风光</DialogTitle>
+                <DialogContent showCloseButton={false} className="max-w-[95vw] max-h-[95vh] p-1 bg-black/90 border-0 sm:max-w-[90vw] sm:max-h-[90vh]">
+                  <Image
+                    src={"/images/gallery/" + src}
+                    alt={`Image ${i + 1}`}
+                    width={1920}
+                    height={1080}
+                    className="w-full h-full max-h-[93vh] object-contain sm:max-h-[88vh]"
+                    sizes="95vw"
+                  />
                 </DialogContent>
               </Dialog>
             </CarouselItem>
