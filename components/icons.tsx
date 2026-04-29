@@ -18,6 +18,7 @@ import {
     MoreVertical,
     Pizza,
     Plus,
+    Info,
     Sun,
     Settings,
     SunMedium,
@@ -35,6 +36,7 @@ export type Icon = LucideIcon
 export const Icons = {
     logo: Command,
     x: X,
+    info: Info,
     spinner: Loader2,
     chevronLeft: ChevronLeft,
     chevronRight: ChevronRight,

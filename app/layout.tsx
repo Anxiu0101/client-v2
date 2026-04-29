@@ -31,11 +31,11 @@ export default function RootLayout({
             }}
         >
         <ThemeProvider>
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-dvh flex flex-col">
                 <Header />
 
-                <main className="flex-1">
-                    <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <main className="flex-1 flex flex-col">
+                    <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex-1">
                         {children}
                     </div>
                 </main>

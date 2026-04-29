@@ -5,7 +5,7 @@ import Link from "next/link"
 
 export default function TagsPage() {
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="py-6">
       <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-2">Tags</h1>
       <p className="text-muted-foreground mb-8">
         Browse all tags used across blog posts.

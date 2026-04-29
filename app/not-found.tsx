@@ -16,7 +16,7 @@ import Link from "next/link";
 
 export default function Page() {
     return (
-        <Empty className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+        <Empty className="flex flex-col items-center justify-center min-h-[60dvh]">
             <EmptyHeader>
                 <EmptyTitle className="text-4xl font-bold mb-4">404 - Not Found</EmptyTitle>
                 <EmptyDescription>

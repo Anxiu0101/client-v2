@@ -7,7 +7,7 @@ import { posts } from "velite-generate";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { siteConfig } from "@/config/site";
 import { getPostBySlug } from "@/lib/velite";
-import BlogInfoSheet from "@/components/blog/comment-sheet";
+import BlogInfoSheet from "@/components/blog/blog-info-sheet";
 
 export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     const { slug } = await props.params
@@ -18,17 +18,15 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     }
 
     return (
-        <div className="reading-layout mx-auto px-4 py-6">
+        <div className="py-6">
 
-            <main className="content max-w-4xl mx-auto">
+            <div className="max-w-4xl">
 
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
 
                 <TableOfContent items={post.toc}/>
                 <BlogInfoSheet post={post} />
 
-                {/*<div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">*/}
-                {/*</div>*/}
                 <MDXContent code={post.content} components={{}} />
 
                 {/* Tags and Metadata */}
@@ -50,7 +48,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                         }}
                     />
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

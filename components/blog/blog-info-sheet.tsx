@@ -12,6 +12,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import {PostBlog} from "velite-generate";
+import { Icons } from "@/components/icons";
 
 type PostInfoSheetProps = { post: PostBlog }
 
@@ -19,7 +20,9 @@ export default function BlogInfoSheet(props: PostInfoSheetProps) {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline">Post Detail</Button>
+                <Button variant="outline">
+                    <Icons.info/>
+                </Button>
             </SheetTrigger>
             <SheetContent showCloseButton={false}>
                 <SheetHeader>
