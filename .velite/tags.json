@@ -208,5 +208,14 @@
       "posts": 1
     },
     "permalink": "/tags/Java"
+  },
+  {
+    "name": "Travel",
+    "slug": "Travel",
+    "permalink": "/tags/Travel",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
   }
 ]

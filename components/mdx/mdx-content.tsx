@@ -1,11 +1,13 @@
 import * as runtime from 'react/jsx-runtime'
 import React, {ComponentPropsWithoutRef} from "react";
 import { ImageWithFallback } from "@/components/mdx/image-with-fallback";
+import { TravelGallery } from "@/components/mdx/travel-gallery";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 // https://github.com/Stryke-AI/shadcn-ui/blob/main/apps/v4/mdx-components.tsx
 const sharedComponents = {
+    TravelGallery,
     // Add your global components here
     h2: (props: ComponentPropsWithoutRef<'h2'>) => (
         <h2 className="scroll-m-20 border-b p-2 text-3xl font-semibold tracking-tight [&+p]:mt-4! first:mt-0" {...props}/>
