@@ -8,7 +8,7 @@ interface BlogTagProps {
 
 export function BlogTag({ tagid }: BlogTagProps) {
     return (
-        <Link href={`/tags/${tagid}`} key={tagid} className="no-underline">
+        <Link href={`/tag/${tagid}`} key={tagid} className="no-underline">
             <Badge
                 variant="outline"
                 className="text-xs text-muted-foreground hover:opacity-60 transition-opacity cursor-pointer"

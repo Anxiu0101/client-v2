@@ -1,13 +1,13 @@
 - name: Code
-  slug: code
+  slug: Code
   description: Programming relative content, including Development, Deployment, Software Recommend, Security, etc.
 
 - name: Python
-  slug: python
+  slug: Python
   description: Python programming language, scripting, and automation.
 
 - name: Design-Pattern
-  slug: design-pattern
+  slug: Design-Pattern
   description: Software design patterns and architectural best practices.
 
 - name: Golang
@@ -42,12 +42,12 @@
   slug: Network
   description: Networking concepts, protocols, and infrastructure.
 
-- name: paper
-  slug: paper
+- name: Paper
+  slug: Paper
   description: Academic papers, research notes, and literature reviews.
 
-- name: research
-  slug: research
+- name: Research
+  slug: Research
   description: Research methodologies, findings, and technical exploration.
 
 - name: Julia
@@ -62,25 +62,21 @@
   slug: Writing
   description: Technical writing, documentation, and content creation.
 
-- name: buf
-  slug: buf
-  description: Buf build system for Protocol Buffers and schema management.
-
-- name: protoc
-  slug: protoc
-  description: Protocol Buffers compiler usage and configuration.
-
-- name: proto
-  slug: proto
-  description: Protocol Buffers schema design and best practices.
-
-- name: grpc
-  slug: grpc
+- name: GRPC
+  slug: GRPC
   description: gRPC framework for building distributed systems and microservices.
 
-- name: grpc-gateway
-  slug: grpc-gateway
+- name: GRPC-gateway
+  slug: GRPC-gateway
   description: gRPC-gateway for exposing gRPC services as RESTful APIs.
+
+- name: Micro-service
+  slug: Micro-service
+  description: Microservice architecture, service decomposition, and inter-service communication.
+
+- name: Protobuf
+  slug: Protobuf
+  description: Protocol Buffers serialization format, schema design, and best practices.
 
 - name: Java
   slug: Java
