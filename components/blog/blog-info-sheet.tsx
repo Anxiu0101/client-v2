@@ -20,7 +20,7 @@ export default function BlogInfoSheet(props: PostInfoSheetProps) {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <Button variant="outline">
+                <Button variant="ghost" size="icon-sm">
                     <Icons.info/>
                 </Button>
             </SheetTrigger>

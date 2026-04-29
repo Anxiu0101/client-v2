@@ -7,7 +7,7 @@ import { posts } from "velite-generate";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { siteConfig } from "@/config/site";
 import { getPostBySlug } from "@/lib/velite";
-import BlogInfoSheet from "@/components/blog/blog-info-sheet";
+import { PostToolbar } from "@/components/blog/post-toolbar";
 
 export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     const { slug } = await props.params
@@ -22,10 +22,14 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
 
             <div className="max-w-4xl">
 
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
+                <div className="flex items-start justify-between gap-4 mb-4 sm:mb-6">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl">{post.title}</h1>
+                  <div className="shrink-0 mt-1">
+                    <PostToolbar post={post} />
+                  </div>
+                </div>
 
                 <TableOfContent items={post.toc}/>
-                <BlogInfoSheet post={post} />
 
                 <MDXContent code={post.content} components={{}} />
 
