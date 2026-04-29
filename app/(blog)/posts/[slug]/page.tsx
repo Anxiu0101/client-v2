@@ -7,6 +7,7 @@ import { posts } from "velite-generate";
 import { MDXContent } from "@/components/mdx/mdx-content";
 import { siteConfig } from "@/config/site";
 import { getPostBySlug } from "@/lib/velite";
+import CommentSheet from "@/components/blog/comment-sheet";
 
 export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     const { slug } = await props.params
@@ -24,6 +25,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-6">{post.title}</h1>
 
                 <TableOfContent items={post.toc}/>
+                <CommentSheet/>
 
                 {/*<div className="prose prose-sm sm:prose-base lg:prose-lg prose-neutral dark:prose-invert max-w-none">*/}
                 {/*</div>*/}

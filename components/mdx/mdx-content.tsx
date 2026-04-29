@@ -31,6 +31,12 @@ const sharedComponents = {
             {...props}
         />
     ),
+    pre: ({ className, ...props }: React.ComponentProps<"pre">) => (
+        <pre
+            className={cn("not-first:mt-3 mb-2 overflow-auto rounded-lg py-1", className)}
+            {...props}
+        />
+    ),
     // pre: (props: ComponentPropsWithoutRef<'pre'>) => (
     //     <pre
     //         className="p-4 rounded-lg border overflow-x-auto bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]"
