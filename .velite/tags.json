@@ -4,8 +4,8 @@
     "slug": "code",
     "description": "Programming relative content, including Development, Deployment, Software Recommend, Security, etc.",
     "count": {
-      "total": 8,
-      "posts": 8
+      "total": 9,
+      "posts": 9
     },
     "permalink": "/tags/code"
   },
@@ -110,26 +110,6 @@
     "permalink": "/tags/Network"
   },
   {
-    "name": "paper",
-    "slug": "paper",
-    "description": "Academic papers, research notes, and literature reviews.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/paper"
-  },
-  {
-    "name": "research",
-    "slug": "research",
-    "description": "Research methodologies, findings, and technical exploration.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/research"
-  },
-  {
     "name": "Julia",
     "slug": "Julia",
     "description": "Julia programming language, scientific computing, and numerical analysis.",
@@ -160,56 +140,6 @@
     "permalink": "/tags/Writing"
   },
   {
-    "name": "buf",
-    "slug": "buf",
-    "description": "Buf build system for Protocol Buffers and schema management.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/buf"
-  },
-  {
-    "name": "protoc",
-    "slug": "protoc",
-    "description": "Protocol Buffers compiler usage and configuration.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/protoc"
-  },
-  {
-    "name": "proto",
-    "slug": "proto",
-    "description": "Protocol Buffers schema design and best practices.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/proto"
-  },
-  {
-    "name": "grpc",
-    "slug": "grpc",
-    "description": "gRPC framework for building distributed systems and microservices.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/grpc"
-  },
-  {
-    "name": "grpc-gateway",
-    "slug": "grpc-gateway",
-    "description": "gRPC-gateway for exposing gRPC services as RESTful APIs.",
-    "count": {
-      "total": 1,
-      "posts": 1
-    },
-    "permalink": "/tags/grpc-gateway"
-  },
-  {
     "name": "Java",
     "slug": "Java",
     "description": "Java programming language, JVM ecosystem, and enterprise development.",
@@ -218,5 +148,59 @@
       "posts": 1
     },
     "permalink": "/tags/Java"
+  },
+  {
+    "name": "Micro-service",
+    "slug": "Micro-service",
+    "permalink": "/tags/Micro-service",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "Protobuf",
+    "slug": "Protobuf",
+    "permalink": "/tags/Protobuf",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "GRPC",
+    "slug": "GRPC",
+    "permalink": "/tags/GRPC",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "GRPC-gateway",
+    "slug": "GRPC-gateway",
+    "permalink": "/tags/GRPC-gateway",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "Paper",
+    "slug": "Paper",
+    "permalink": "/tags/Paper",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "Research",
+    "slug": "Research",
+    "permalink": "/tags/Research",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
   }
 ]

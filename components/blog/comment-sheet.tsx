@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet"
 import {PostBlog} from "velite-generate";
 
-type PostInfoSheetProps = PostBlog
+type PostInfoSheetProps = { post: PostBlog }
 
 export default function BlogInfoSheet(props: PostInfoSheetProps) {
     return (
@@ -25,7 +25,7 @@ export default function BlogInfoSheet(props: PostInfoSheetProps) {
                 <SheetHeader>
                     <SheetTitle>Information</SheetTitle>
                     <SheetDescription>
-                        {props.description}
+                        {props.post.description}
                     </SheetDescription>
                 </SheetHeader>
                 <div className="grid flex-1 auto-rows-min gap-6 px-4">
