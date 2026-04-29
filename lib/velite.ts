@@ -33,6 +33,20 @@ export interface PostInfo {
     permalink: string;
 }
 
+export const toPostCardProps = (rawPosts: PostBlog[]) => {
+    return rawPosts
+        .filter(post => process.env.NODE_ENV !== 'production' || !post.draft)
+        .map(post => ({
+            title: post.title,
+            description: post.description,
+            date: post.date,
+            readingTime: post.metadata.readingTime,
+            author: post.author,
+            tags: post.tags,
+            permalink: post.permalink,
+        }))
+}
+
 export const getRecentPostsInfo = () => {}
 export const getRecentPostsByCategory = (category: string) => {}
 

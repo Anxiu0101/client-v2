@@ -12,6 +12,7 @@
   {
     "name": "Python",
     "slug": "python",
+    "description": "Python programming language, scripting, and automation.",
     "count": {
       "total": 1,
       "posts": 1
@@ -21,6 +22,7 @@
   {
     "name": "Design-Pattern",
     "slug": "design-pattern",
+    "description": "Software design patterns and architectural best practices.",
     "count": {
       "total": 1,
       "posts": 1
@@ -30,172 +32,191 @@
   {
     "name": "Golang",
     "slug": "Golang",
-    "permalink": "/tags/Golang",
+    "description": "Go programming language, concurrency, and backend development.",
     "count": {
       "total": 4,
       "posts": 4
-    }
+    },
+    "permalink": "/tags/Golang"
   },
   {
     "name": "Tool",
     "slug": "Tool",
-    "permalink": "/tags/Tool",
+    "description": "Developer tools, utilities, and productivity enhancements.",
     "count": {
       "total": 6,
       "posts": 6
-    }
+    },
+    "permalink": "/tags/Tool"
   },
   {
     "name": "Linux",
     "slug": "Linux",
-    "permalink": "/tags/Linux",
+    "description": "Linux system administration, commands, and configuration.",
     "count": {
       "total": 2,
       "posts": 2
-    }
+    },
+    "permalink": "/tags/Linux"
   },
   {
     "name": "MySQL",
     "slug": "MySQL",
-    "permalink": "/tags/MySQL",
+    "description": "MySQL database management, optimization, and queries.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/MySQL"
   },
   {
     "name": "Docker",
     "slug": "Docker",
-    "permalink": "/tags/Docker",
+    "description": "Containerization with Docker and container orchestration.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Docker"
   },
   {
     "name": "PostgreSQL",
     "slug": "PostgreSQL",
-    "permalink": "/tags/PostgreSQL",
+    "description": "PostgreSQL database features, performance tuning, and administration.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/PostgreSQL"
   },
   {
     "name": "Deploy",
     "slug": "Deploy",
-    "permalink": "/tags/Deploy",
+    "description": "Application deployment strategies, CI/CD, and DevOps.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Deploy"
   },
   {
     "name": "Network",
     "slug": "Network",
-    "permalink": "/tags/Network",
+    "description": "Networking concepts, protocols, and infrastructure.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Network"
   },
   {
     "name": "paper",
     "slug": "paper",
-    "permalink": "/tags/paper",
+    "description": "Academic papers, research notes, and literature reviews.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/paper"
   },
   {
     "name": "research",
     "slug": "research",
-    "permalink": "/tags/research",
+    "description": "Research methodologies, findings, and technical exploration.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/research"
   },
   {
     "name": "Julia",
     "slug": "Julia",
-    "permalink": "/tags/Julia",
+    "description": "Julia programming language, scientific computing, and numerical analysis.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Julia"
   },
   {
     "name": "Latex",
     "slug": "Latex",
-    "permalink": "/tags/Latex",
+    "description": "LaTeX typesetting, document preparation, and academic writing.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Latex"
   },
   {
     "name": "Writing",
     "slug": "Writing",
-    "permalink": "/tags/Writing",
+    "description": "Technical writing, documentation, and content creation.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Writing"
   },
   {
     "name": "buf",
     "slug": "buf",
-    "permalink": "/tags/buf",
+    "description": "Buf build system for Protocol Buffers and schema management.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/buf"
   },
   {
     "name": "protoc",
     "slug": "protoc",
-    "permalink": "/tags/protoc",
+    "description": "Protocol Buffers compiler usage and configuration.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/protoc"
   },
   {
     "name": "proto",
     "slug": "proto",
-    "permalink": "/tags/proto",
+    "description": "Protocol Buffers schema design and best practices.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/proto"
   },
   {
     "name": "grpc",
     "slug": "grpc",
-    "permalink": "/tags/grpc",
+    "description": "gRPC framework for building distributed systems and microservices.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/grpc"
   },
   {
     "name": "grpc-gateway",
     "slug": "grpc-gateway",
-    "permalink": "/tags/grpc-gateway",
+    "description": "gRPC-gateway for exposing gRPC services as RESTful APIs.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/grpc-gateway"
   },
   {
     "name": "Java",
     "slug": "Java",
-    "permalink": "/tags/Java",
+    "description": "Java programming language, JVM ecosystem, and enterprise development.",
     "count": {
       "total": 1,
       "posts": 1
-    }
+    },
+    "permalink": "/tags/Java"
   }
 ]

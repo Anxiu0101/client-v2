@@ -4,6 +4,84 @@
 
 - name: Python
   slug: python
+  description: Python programming language, scripting, and automation.
 
 - name: Design-Pattern
   slug: design-pattern
+  description: Software design patterns and architectural best practices.
+
+- name: Golang
+  slug: Golang
+  description: Go programming language, concurrency, and backend development.
+
+- name: Tool
+  slug: Tool
+  description: Developer tools, utilities, and productivity enhancements.
+
+- name: Linux
+  slug: Linux
+  description: Linux system administration, commands, and configuration.
+
+- name: MySQL
+  slug: MySQL
+  description: MySQL database management, optimization, and queries.
+
+- name: Docker
+  slug: Docker
+  description: Containerization with Docker and container orchestration.
+
+- name: PostgreSQL
+  slug: PostgreSQL
+  description: PostgreSQL database features, performance tuning, and administration.
+
+- name: Deploy
+  slug: Deploy
+  description: Application deployment strategies, CI/CD, and DevOps.
+
+- name: Network
+  slug: Network
+  description: Networking concepts, protocols, and infrastructure.
+
+- name: paper
+  slug: paper
+  description: Academic papers, research notes, and literature reviews.
+
+- name: research
+  slug: research
+  description: Research methodologies, findings, and technical exploration.
+
+- name: Julia
+  slug: Julia
+  description: Julia programming language, scientific computing, and numerical analysis.
+
+- name: Latex
+  slug: Latex
+  description: LaTeX typesetting, document preparation, and academic writing.
+
+- name: Writing
+  slug: Writing
+  description: Technical writing, documentation, and content creation.
+
+- name: buf
+  slug: buf
+  description: Buf build system for Protocol Buffers and schema management.
+
+- name: protoc
+  slug: protoc
+  description: Protocol Buffers compiler usage and configuration.
+
+- name: proto
+  slug: proto
+  description: Protocol Buffers schema design and best practices.
+
+- name: grpc
+  slug: grpc
+  description: gRPC framework for building distributed systems and microservices.
+
+- name: grpc-gateway
+  slug: grpc-gateway
+  description: gRPC-gateway for exposing gRPC services as RESTful APIs.
+
+- name: Java
+  slug: Java
+  description: Java programming language, JVM ecosystem, and enterprise development.
