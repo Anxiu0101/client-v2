@@ -11,65 +11,99 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { CircleAlertIcon } from "lucide-react"
 import { blogNavConfig } from "@/config/nav-item"
-import { ZNavItem } from "@/types/navigation";
 
+interface BlogNavigationMenuProps {
+    mobile?: boolean
+}
 
-export function BlogNavigationMenu() {
+const categories = [
+    {
+        title: "Code Practice",
+        href: "/category/tech",
+        description: "Technical blogs about programming, tools, and deployment.",
+    },
+    {
+        title: "Book Insight",
+        href: "/category/book",
+        description: "Reading notes, book reviews, and literary reflections.",
+    },
+    {
+        title: "Life Journal",
+        href: "/category/life",
+        description: "Personal stories, photography, and travel journals.",
+    },
+]
+
+export function BlogNavigationMenu({ mobile = false }: BlogNavigationMenuProps) {
+    if (mobile) {
+        return (
+            <div className="flex flex-col gap-1">
+                <p className="text-xs font-medium text-muted-foreground px-3 pt-1">
+                    Category
+                </p>
+                {categories.map((cat) => (
+                    <Link
+                        key={cat.href}
+                        href={cat.href}
+                        className="rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                    >
+                        {cat.title}
+                    </Link>
+                ))}
+                <div className="border-t border-border/40 my-2" />
+                <Link
+                    href="/tag"
+                    className="rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                >
+                    Tags
+                </Link>
+                <Link
+                    href={blogNavConfig.AboutMeNav.href}
+                    className="rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                >
+                    {blogNavConfig.AboutMeNav.title}
+                </Link>
+            </div>
+        )
+    }
+
     return (
         <NavigationMenu>
             <NavigationMenuList>
-                {/* Technology Blog with Main Tags Item.*/}
-                <NavigationMenuItem className="hidden md:flex">
-                    <NavigationMenuTrigger>{blogNavConfig.TechNav.description}</NavigationMenuTrigger>
+                {/* Category dropdown */}
+                <NavigationMenuItem>
+                    <NavigationMenuTrigger>Category</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {blogNavConfig.TechNav.subItems.map((item: ZNavItem) => (
+                        <ul className="flex flex-col w-[300px] gap-1">
+                            {categories.map((cat) => (
                                 <ListItem
-                                    key={item.title}
-                                    title={item.title}
-                                    href={item.href}
+                                    key={cat.href}
+                                    title={cat.title}
+                                    href={cat.href}
                                 >
-                                    {item.description}
+                                    {cat.description}
                                 </ListItem>
                             ))}
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {/* Book Insights with Main Tags Item.*/}
-                <NavigationMenuItem>
-                    <NavigationMenuTrigger>{blogNavConfig.BookNav.description}</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {blogNavConfig.BookNav.subItems.map((item: ZNavItem) => (
-                                <ListItem
-                                    key={item.title}
-                                    title={item.title}
-                                    href={item.href}
-                                >
-                                    {item.description}
-                                </ListItem>
-                            ))}
-                        </ul>
-                    </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Life Journal.*/}
+                {/* Tags */}
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                        <Link href={blogNavConfig.LifeNav.href}>{blogNavConfig.LifeNav.description}</Link>
+                        <Link href="/tag">Tags</Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
 
-                {/* About Me.*/}
+                {/* About Me */}
                 <NavigationMenuItem>
                     <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                        <Link href={blogNavConfig.AboutMeNav.href}>{blogNavConfig.AboutMeNav.title}</Link>
+                        <Link href={blogNavConfig.AboutMeNav.href}>
+                            {blogNavConfig.AboutMeNav.title}
+                        </Link>
                     </NavigationMenuLink>
                 </NavigationMenuItem>
-
             </NavigationMenuList>
         </NavigationMenu>
     )

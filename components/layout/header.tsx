@@ -1,14 +1,12 @@
 "use client";
 
-import { useTheme } from 'next-themes';
-import { Button } from 'components/ui/button';
+import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { BlogNavigationMenu } from "components/navigation-menu";
-import { Icons, AnxiuInfoLogo } from "components/icons";
-import {ThemeToggle} from "components/layout/theme-toggle";
+import { BlogNavigationMenu } from "@/components/navigation-menu";
+import { Icons, AnxiuInfoLogo } from "@/components/icons";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
 
   return (
@@ -53,9 +51,7 @@ export function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <nav className="md:hidden border-t border-border/40 py-4">
-            <div className="flex flex-col gap-3">
-              <BlogNavigationMenu/>
-            </div>
+            <BlogNavigationMenu mobile />
           </nav>
         )}
       </div>
