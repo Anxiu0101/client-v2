@@ -5,9 +5,11 @@ import { useState } from 'react';
 import { BlogNavigationMenu } from "@/components/navigation-menu";
 import { Icons, AnxiuInfoLogo } from "@/components/icons";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { useSearch } from "@/hooks/use-search";
 
 export function Header() {
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
+  const { setOpen: setSearchOpen } = useSearch();
 
   return (
     <header className="border-b border-border/40">
@@ -23,8 +25,9 @@ export function Header() {
                 variant="ghost"
                 size="sm"
                 className="h-8 w-8 p-0"
+                onClick={() => setSearchOpen(true)}
             >
-              <Icons.search className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Icons.search className="h-4 w-4" />
               <span className="sr-only">Blog Search</span>
             </Button>
             <ThemeToggle/>

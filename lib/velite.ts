@@ -23,7 +23,7 @@ export const getTagList = () => {
 }
 
 // Recent Posts
-export interface PostInfo {
+export interface PostCardData {
     title: string;
     description: string;
     date: string;
@@ -31,6 +31,7 @@ export interface PostInfo {
     author: string;
     tags: string[];
     permalink: string;
+    category: string;
 }
 
 export const toPostCardProps = (rawPosts: PostBlog[]) => {
@@ -44,6 +45,7 @@ export const toPostCardProps = (rawPosts: PostBlog[]) => {
             author: post.author,
             tags: post.tags,
             permalink: post.permalink,
+            category: post.category,
         }))
 }
 

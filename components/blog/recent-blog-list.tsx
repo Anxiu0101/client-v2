@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { PostCard } from "@/components/PostCard"
-import { posts } from "velite-generate"
-import { toPostCardProps } from "@/lib/velite"
+import { useState, useEffect } from "react"
+import { PostCard, PostCardSkeletonList } from "@/components/PostCard"
+import type { PostCardData } from "@/lib/velite"
 import {
   Pagination,
   PaginationContent,
@@ -18,7 +17,20 @@ const POSTS_PER_PAGE = 7
 
 export function RecentBlogList() {
   const [currentPage, setCurrentPage] = useState(1)
-  const allPosts = toPostCardProps(posts)
+  const [allPosts, setAllPosts] = useState<PostCardData[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch("/search-index.json")
+      .then((res) => res.json())
+      .then((data: PostCardData[]) => {
+        setAllPosts(data)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) return <PostCardSkeletonList count={POSTS_PER_PAGE} />
+
   const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
 
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE

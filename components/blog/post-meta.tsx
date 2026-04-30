@@ -44,7 +44,7 @@ export function PostMeta({ tags, author, date, wordCount, url }: PostMetaProps) 
         {/* Divider */}
         <div className="border-t border-border/40" />
 
-        {/* Author, Date, Views */}
+        {/* Author, Date, Word Count */}
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <User className="size-4 shrink-0" />
@@ -62,7 +62,7 @@ export function PostMeta({ tags, author, date, wordCount, url }: PostMetaProps) 
             <div className="flex items-center gap-2">
               <Eye className="size-4 shrink-0" />
               <span>词数</span>
-              <span className="text-foreground">{wordCount}</span>
+              <span className="text-foreground">{Math.round(wordCount)}</span>
             </div>
           )}
         </div>

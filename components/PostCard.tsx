@@ -6,10 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardAction, CardContent, CardHeader} from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BlogTag } from "@/components/blog/blog-tag";
-import { PostInfo } from "@/lib/velite";
+import type { PostCardData } from "@/lib/velite";
 
-
-export type PostCardProps = PostInfo;
+export type PostCardProps = PostCardData;
 
 export function PostCard({
   title,

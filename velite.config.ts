@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 import { exec } from 'child_process'
 import { promisify } from 'util'
+import fs from 'fs'
+import path from 'path'
 
 const count = s.object({ total: s.number(), posts: s.number() }).default({ total: 0, posts: 0 })
 
@@ -190,6 +192,26 @@ export default defineConfig({
         //   anything: { name: 'Anything', data: { name: 'Anything' } },
         //   list: ['one', 'two', 'three']
         // })
+
+        // generate client-side search index (shares PostCardData shape)
+        const searchIndex = docs.map(post => ({
+            title: post.title,
+            description: post.description,
+            tags: post.tags,
+            category: post.category,
+            permalink: post.permalink,
+            date: post.date,
+            readingTime: post.metadata.readingTime,
+            author: post.author,
+        }))
+        const publicDir = path.join(process.cwd(), 'public')
+        if (!fs.existsSync(publicDir)) {
+            fs.mkdirSync(publicDir, { recursive: true })
+        }
+        fs.writeFileSync(
+            path.join(publicDir, 'search-index.json'),
+            JSON.stringify(searchIndex)
+        )
 
         // return false // return false to prevent velite from writing data to disk
     }

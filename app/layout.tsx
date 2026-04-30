@@ -11,6 +11,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { SearchProvider } from "@/hooks/use-search";
+import { CommandSearch } from "@/components/blog/command-search";
 
 export const metadata: Metadata = {
     title: "Anxiu.Info Personal Blog",
@@ -31,6 +33,8 @@ export default function RootLayout({
             }}
         >
         <ThemeProvider>
+            <SearchProvider>
+            <CommandSearch />
             <div className="min-h-dvh flex flex-col">
                 <Header />
 
@@ -42,6 +46,7 @@ export default function RootLayout({
 
                 <Footer />
             </div>
+            </SearchProvider>
         </ThemeProvider>
         </body>
         </html>
