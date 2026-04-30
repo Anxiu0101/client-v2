@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import { BlogNavigationMenu } from "@/components/navigation-menu";
+import { BlogNavigationMenu } from "@/components/layout/navigation-menu";
 import { Icons, AnxiuInfoLogo } from "@/components/icons";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { useSearch } from "@/hooks/use-search";

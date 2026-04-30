@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { PostCard, PostCardSkeletonList } from "@/components/PostCard"
+import { PostCard, PostCardSkeletonList } from "@/components/blog/post-card"
 import type { PostCardData } from "@/lib/velite"
 import {
   Pagination,

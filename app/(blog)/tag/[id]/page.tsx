@@ -2,7 +2,7 @@ import { notFound } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { tags, posts } from "velite-generate"
 import { toPostCardProps } from "@/lib/velite"
-import { PostCard } from "@/components/PostCard"
+import { PostCard } from "@/components/blog/post-card"
 
 interface TagPageProps {
   params: Promise<{ id: string }>
