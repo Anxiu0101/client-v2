@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SearchProvider } from "@/hooks/use-search";
 import { CommandSearch } from "@/components/blog/command-search";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 export const metadata: Metadata = {
     title: "Anxiu.Info Personal Blog",
@@ -46,6 +47,7 @@ export default function RootLayout({
 
                 <Footer />
             </div>
+            <ScrollToTop />
             </SearchProvider>
         </ThemeProvider>
         </body>
