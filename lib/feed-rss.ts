@@ -1,18 +1,18 @@
 // lib/feed-rss.ts
 import { Feed } from "feed";
 import { posts } from "velite-generate";
+import { siteConfig } from "@/config/site";
 
-// 博客全局配置（请替换为你的实际信息）
 const BLOG_GLOBAL_CONFIG = {
-    title: "anxiu-info",
-    description: "分享技术、读书、生活的个人思考与总结",
-    siteUrl: "https://your-blog-domain.com", // 你的博客域名（线上环境）
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteUrl: siteConfig.url,
     author: {
         name: "Anxiu",
-        email: "anxiu.fyc@foxmail.com", // 可选，用于 Atom 格式
-        link: "https://your-blog-domain.com/about", // 可选，作者主页
+        email: "anxiu.fyc@foxmail.com",
+        link: `${siteConfig.url}/about`,
     },
-    favicon: "https://your-blog-domain.com/favicon.ico", // 可选，站点图标
+    favicon: `${siteConfig.url}/favicon.ico`,
 };
 
 /**

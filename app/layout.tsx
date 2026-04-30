@@ -18,6 +18,13 @@ import { ScrollToTop } from "@/components/layout/scroll-to-top";
 export const metadata: Metadata = {
     title: "Anxiu.Info Personal Blog",
     description: "Anxiu's personal space for sharing tech and life.",
+    alternates: {
+        types: {
+            "application/rss+xml": [
+                { url: "/rss", title: "Anxiu.Info" },
+            ],
+        },
+    },
 };
 
 export default function RootLayout({
