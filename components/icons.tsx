@@ -81,6 +81,46 @@ export const Icons = {
     check: Check,
 }
 
+export function CcIcon(props: LucideProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <text x="12" y="15.5" textAnchor="middle" fontSize="7" fontWeight="bold" fill="currentColor" stroke="none">CC</text>
+    </svg>
+  )
+}
+
+export function CcByIcon(props: LucideProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="8" r="2" fill="currentColor" stroke="none" />
+      <path d="M6 20v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3" />
+    </svg>
+  )
+}
+
+export function CcNcIcon(props: LucideProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <text x="12" y="15.5" textAnchor="middle" fontSize="7" fontWeight="bold" fill="currentColor" stroke="none">NC</text>
+    </svg>
+  )
+}
+
+export function CcSaIcon(props: LucideProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M15 9l3 3-3 3" />
+      <path d="M9 15l-3-3 3-3" />
+      <path d="M12 5v4" />
+      <path d="M12 15v4" />
+    </svg>
+  )
+}
+
 export function AnxiuInfoLogo() {
     return (
         <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
