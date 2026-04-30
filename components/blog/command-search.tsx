@@ -71,9 +71,9 @@ export function CommandSearch() {
   )
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    <CommandDialog open={open} onOpenChange={setOpen} className="h-[400px] sm:h-[480px]">
       <CommandInput placeholder="搜索文章..." onValueChange={onSearch} />
-      <CommandList>
+      <CommandList className="max-h-none flex-1">
         <CommandEmpty>没有找到匹配的文章</CommandEmpty>
         {results.length > 0 && (
           <CommandGroup heading="文章">
