@@ -80,3 +80,19 @@ Create `.mdx` files under `content/` organized by category (tech, life, book, ta
 | `yarn lint` | Check code quality |
 | `yarn format` | Auto-fix code issues |
 | `yarn gen` | Generate content |
+
+## Documentation Map
+
+Detailed docs live in `docs/`. Reference them before making structural changes.
+
+| Document | Description | Read When |
+|----------|-------------|-----------|
+| `docs/architecture.md` | System architecture, data flow, component tree, route design, state management, styling | Understanding the big picture; planning new features; cross-cutting changes |
+| `docs/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
+| `.opencode/skills/build-and-dev.md` | Build, dev, lint, format workflows | Running dev/build/lint commands |
+| `.opencode/skills/add-blog-content.md` | How to create new MDX blog posts with frontmatter | Adding blog content |
+| `.opencode/skills/add-shadcn-component.md` | How to install shadcn/ui components | Adding UI primitives |
+
+### .velite/ Warning
+
+Files in `.velite/` are **auto-generated**. Never edit them directly. Modify source content in `content/` or schema logic in `velite.config.ts`, then run `yarn gen`.
