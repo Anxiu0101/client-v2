@@ -18,6 +18,87 @@ const count = s.object({ total: s.number(), posts: s.number() }).default({ total
 
 const execAsync = promisify(exec)
 
+interface MdxNode {
+  type: string
+  lang?: string
+  value?: string
+  name?: string
+  attributes?: { type: string; name: string; value: string }[]
+  children?: MdxNode[]
+}
+
+interface MdxTree {
+  children: MdxNode[]
+}
+
+function toJsxNode(name: string, attrs: Record<string, string>, children?: MdxNode[]) {
+  return {
+    type: 'mdxJsxFlowElement',
+    name,
+    attributes: Object.entries(attrs).map(([n, v]) => ({
+      type: 'mdxJsxAttribute' as const,
+      name: n,
+      value: v,
+    })),
+    children: children ?? [],
+  }
+}
+
+const ALERT_MAP: Record<string, string> = {
+  info: 'note',
+  note: 'note',
+  success: 'tip',
+  tip: 'tip',
+  warning: 'warning',
+  warn: 'warning',
+  error: 'error',
+  danger: 'error',
+}
+
+function isAlert(lang: string | undefined): lang is string {
+  return lang != null && lang in ALERT_MAP
+}
+
+function remarkMermaid() {
+  return (tree: MdxTree) => {
+    const walk = (nodes: MdxNode[]) => {
+      let i = 0
+      while (i < nodes.length) {
+        const node = nodes[i]
+        if (node.type === 'code' && node.lang === 'mermaid') {
+          nodes[i] = toJsxNode('Mermaid', { code: node.value ?? '' })
+        } else if (node.children) {
+          walk(node.children)
+        }
+        i++
+      }
+    }
+    if (tree.children) walk(tree.children)
+  }
+}
+
+function remarkAlert() {
+  return (tree: MdxTree) => {
+    const walk = (nodes: MdxNode[]) => {
+      let i = 0
+      while (i < nodes.length) {
+        const node = nodes[i]
+        if (node.type === 'code' && isAlert(node.lang)) {
+          const type = ALERT_MAP[node.lang]
+          const content = node.value ?? ''
+          nodes[i] = toJsxNode('Alert', { type }, [
+            { type: 'paragraph', children: [{ type: 'text', value: content }] },
+          ])
+        } else if (node.children) {
+          walk(node.children)
+        }
+        i++
+      }
+    }
+    if (tree.children) walk(tree.children)
+  }
+}
+
 // timestamp for last updated time by git timestamp.
 // https://velite.js.org/guide/last-modified#based-on-git-timestamp
 const timestamp = defineSchema(() =>
@@ -145,6 +226,7 @@ export default defineConfig({
     root: "content",
     collections: { posts, categories, tags },
     mdx: {
+        remarkPlugins: [remarkMermaid, remarkAlert],
         rehypePlugins: [
             rehypeSlug,
             [

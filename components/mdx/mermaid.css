@@ -1,0 +1,10 @@
+.mermaid svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.mermaid .label {
+  font-family: var(--font-sans), sans-serif !important;
+}

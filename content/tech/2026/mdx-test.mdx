@@ -1,0 +1,235 @@
+---
+title: 'MDX 特性测试'
+date: 2026-05-03 00:57:05
+tags: [Mermaid, MDX, Test]
+published: true
+comments: true
+description: 全面测试博客渲染引擎支持的 MDX 特性，包含 Mermaid 图表、Alert 告警框、代码块、表格等。
+---
+
+## Mermaid 流程图
+
+```mermaid
+flowchart TB
+    subgraph Source["内容源"]
+        MDX_FILES["content/\n  tech/**/*.mdx\n  life/**/*.mdx\n  book/**/*.mdx"]
+        CAT_YML["content/categories/*.yml"]
+        TAG_YML["content/tags/index.yml"]
+    end
+
+    subgraph Velite["Velite 构建"]
+        SCHEMA["Schema 校验"]
+        COMPUTED["计算字段\n(slug, permalink, category)"]
+        MDX_PARSE["MDX 解析\n(rehypeSlug, rehypePrettyCode,\nremarkMermaid, remarkAlert)"]
+        PREPARE["prepare 钩子\n(search-index.json)"]
+    end
+
+    subgraph Output["构建产物"]
+        VELITE_DIR[".velite/\n  posts.json\n  categories.json\n  tags.json"]
+        SEARCH_JSON["public/search-index.json"]
+    end
+
+    subgraph Consumer["消费端"]
+        SSR["服务端组件"]
+        CSR["客户端组件\n(CommandSearch)"]
+    end
+
+    MDX_FILES --> SCHEMA
+    CAT_YML --> SCHEMA
+    TAG_YML --> SCHEMA
+    SCHEMA --> COMPUTED
+    COMPUTED --> MDX_PARSE
+    MDX_PARSE --> PREPARE
+    PREPARE --> VELITE_DIR
+    PREPARE --> SEARCH_JSON
+    VELITE_DIR --> SSR
+    SEARCH_JSON --> CSR
+```
+
+## Mermaid 时序图
+
+```mermaid
+sequenceDiagram
+    participant U as 用户
+    participant F as 前端
+    participant B as 后端
+    participant D as 数据库
+
+    U->>F: 点击搜索
+    F->>B: GET /api/search?q=keyword
+    B->>D: SELECT * FROM posts WHERE ...
+    D-->>B: 返回结果
+    B-->>F: JSON 响应
+    F-->>U: 渲染搜索结果
+```
+
+## Mermaid 类图
+
+```mermaid
+classDiagram
+    class Post {
+        +String title
+        +String slug
+        +String content
+        +Date date
+        +String[] tags
+        +getPermalink() String
+    }
+
+    class Category {
+        +String name
+        +String slug
+        +Post[] posts
+    }
+
+    class Tag {
+        +String name
+        +String slug
+        +Post[] posts
+    }
+
+    Post "*" --> "1" Category
+    Post "*" --> "*" Tag
+```
+
+## Alert 告警框
+
+```info
+这是一条普通提示信息，用于向读者传递补充说明或背景知识。
+```
+
+```tip
+这是一条小贴士，提供最佳实践或实用建议。
+```
+
+```warning
+这是一条警告，提醒读者注意潜在问题或常见陷阱。
+```
+
+```error
+这是一条错误提示，说明严重问题或需要立即关注的事项。
+```
+
+## 代码块测试
+
+### TypeScript
+
+```ts
+interface User {
+  id: string
+  name: string
+  email: string
+}
+
+async function fetchUser(id: string): Promise<User> {
+  const res = await fetch(`/api/users/${id}`)
+  if (!res.ok) throw new Error("Failed to fetch user")
+  return res.json()
+}
+```
+
+### Go
+
+```go
+package main
+
+import "fmt"
+
+type Greeter struct {
+    Name string
+}
+
+func (g *Greeter) Greet() string {
+    return fmt.Sprintf("Hello, %s!", g.Name)
+}
+
+func main() {
+    g := &Greeter{Name: "World"}
+    println(g.Greet())
+}
+```
+
+### Python
+
+```python
+from datetime import datetime
+from typing import List
+
+
+class BlogPost:
+    def __init__(self, title: str, tags: List[str]):
+        self.title = title
+        self.tags = tags
+        self.created_at = datetime.now()
+
+    def summary(self) -> str:
+        return f"{self.title} [{', '.join(self.tags)}]"
+```
+
+## 表格
+
+| 特性 | 状态 | 优先级 | 备注 |
+|------|------|--------|------|
+| Mermaid 图表 | ✅ 已完成 | 高 | 流程图、时序图、类图 |
+| Alert 告警框 | ✅ 已完成 | 高 | info / tip / warning / error |
+| 搜索功能 | ✅ 已完成 | 高 | Fuse.js + Command Palette |
+| RSS 订阅 | ✅ 已完成 | 中 | Route Handler + 自动发现 |
+| TOC 滚动监听 | ⏳ 待办 | 中 | IntersectionObserver |
+| 代码行号 | ⏳ 待办 | 低 | rehype-pretty-code 支持 |
+
+## 引用块
+
+> 这是普通引用块，用于标注外部引用或名人名言。
+>
+> 支持多段落引用。
+
+## 自定义块引用
+
+> [!NOTE]
+> 这是一条 GitHub 风格的 NOTE 提示。此格式可以通过自定义 remark 插件解析为带样式的 Alert 组件。
+
+> [!WARNING]
+> 这是一条 GitHub 风格的 WARNING 提示。
+
+## 列表
+
+### 无序列表
+
+- Mermaid 图表支持
+  - 流程图（Flowchart）
+  - 时序图（Sequence Diagram）
+  - 类图（Class Diagram）
+- Alert 告警框
+  - 信息（info / note）
+  - 提示（tip / success）
+  - 警告（warn / warning）
+  - 错误（error / danger）
+
+### 有序列表
+
+1. 安装依赖 `yarn add mermaid`
+2. 创建 Remark 插件转换 `` ```mermaid `` 代码块
+3. 创建客户端 Mermaid 渲染组件
+4. 注册到 `mdx-content.tsx` 的 `sharedComponents`
+
+#### 四级标题示例
+
+这是一段位于四级标题下方的正文，用于测试四级标题的 `scroll-m-20` 行为和字体大小。
+
+##### 五级标题示例
+
+五级标题用于更深层的章节划分。
+
+## 图片
+
+![占位图片](https://raw.githubusercontent.com/Anxiu0101/PicgoImg/master/202503291834859.png "示例图片")
+
+## 行内代码与链接
+
+本项目使用 `next-themes` 管理主题切换，使用 `remark-gfm` 和 `remark-mermaid` 自定义插件进行 MDX 预处理。更多详情请查阅 [项目文档](/about)。
+
+## 分割线
+
+---
+
+以上就是本站目前支持的全部 MDX 渲染特性。后续将持续完善 TOC 滚动监听、代码行号等功能。

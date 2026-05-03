@@ -217,5 +217,32 @@
       "total": 1,
       "posts": 1
     }
+  },
+  {
+    "name": "Mermaid",
+    "slug": "Mermaid",
+    "permalink": "/tags/Mermaid",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "MDX",
+    "slug": "MDX",
+    "permalink": "/tags/MDX",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
+  },
+  {
+    "name": "Test",
+    "slug": "Test",
+    "permalink": "/tags/Test",
+    "count": {
+      "total": 1,
+      "posts": 1
+    }
   }
 ]
