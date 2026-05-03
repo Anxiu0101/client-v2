@@ -46,7 +46,8 @@ npm install -g yarn pm2
 
 ```bash
 apt install -y nginx
-ufw allow Nginx Full
+ufw allow 80/tcp
+ufw allow 443/tcp
 systemctl enable nginx
 ```
 
@@ -71,6 +72,7 @@ yarn build
 cd /var/www/anxiu
 cp -r public .next/standalone/
 cp -r .velite .next/standalone/
+cp -r .next/static .next/standalone/.next/static   # 复制 CSS/JS/font，否则样式丢失
 mkdir -p .next/standalone/node_modules
 cp -r node_modules/sharp .next/standalone/node_modules/
 
@@ -170,7 +172,41 @@ curl -s -o /dev/null -w "%{http_code}" http://<服务器IP>
 
 ---
 
-## 8. 部署脚本
+## 8. 云服务商安全组
+
+云厂商（七牛云、阿里云、腾讯云等）在操作系统 ufw 之外还有一层独立的网络防火墙。
+非标准端口（非 80/443）默认全部阻断，必须单独放行。
+
+### 七牛云
+
+1. 登录 [portal.qiniu.com](https://portal.qiniu.com)
+2. 云主机 → 实例详情 → **安全组** 标签
+3. 点击当前绑定的安全组 → **添加规则**：
+   - 方向：入方向
+   - 协议：TCP
+   - 端口：你的端口（如 15457）
+   - 来源：0.0.0.0/0
+4. 保存，1~2 分钟生效
+
+> 其他厂商（阿里云/腾讯云/华为云）操作类似，在控制台搜索「安全组」即可。
+
+### ufw 放行自定义端口
+
+```bash
+ufw allow 你的端口/tcp
+ufw reload
+```
+
+### 验证
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://<公网IP>:<端口>
+# 预期: 200
+```
+
+---
+
+## 9. 部署脚本
 
 创建 `/var/www/anxiu/deploy.sh`：
 
@@ -184,9 +220,10 @@ yarn gen
 yarn build
 cp -r public .next/standalone/
 cp -r .velite .next/standalone/
+cp -r .next/static .next/standalone/.next/static
 cp -r node_modules/sharp .next/standalone/node_modules/
 pm2 restart anxiu-blog
-echo "Done"
+echo "✅ Done"
 ```
 
 ```bash
@@ -197,7 +234,7 @@ chmod +x /var/www/anxiu/deploy.sh
 
 ---
 
-## 9. 后续安全加固
+## 10. 后续安全加固
 
 ### SSH 密钥登录
 
@@ -223,6 +260,8 @@ certbot --nginx -d yourdomain.com
 | 现象 | 原因 | 解决 |
 |------|------|------|
 | 502 Bad Gateway | Node.js 未启动 | `pm2 status` 检查 |
+| 页面样式全部丢失 | `.next/static/` 未复制到 standalone | `cp -r .next/static .next/standalone/.next/static` |
+| 非 80 端口突然无法访问 | 云厂商安全组未放行 / ufw 未放行 | 控制台添加入站规则 + `ufw allow <端口>/tcp` |
 | 403 Forbidden | nginx 权限 | 检查目录读取权限 |
 | 图片 404 | public 未复制 | `cp -r public .next/standalone/` |
 | 引擎错误 | Node 版本不兼容 | 使用 `--ignore-engines` |
