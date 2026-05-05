@@ -214,7 +214,8 @@ curl -s -o /dev/null -w "%{http_code}" http://<公网IP>:<端口>
 #!/bin/bash
 set -e
 cd /var/www/anxiu
-git pull
+git fetch origin
+git reset --hard origin/master
 yarn install --ignore-engines --frozen-lockfile
 yarn gen
 yarn build
