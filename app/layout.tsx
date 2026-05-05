@@ -1,11 +1,7 @@
 // app/layout.tsx
 import React from "react";
 import type { Metadata } from "next";
-import {
-    fontSans, fontMono,
-    fontLxgwWenKai,
-    fontLxgwWenKaiMono,
-} from "@/lib/fonts";
+import { fontSans, fontMono } from "@/lib/fonts";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/layout/theme-provider";
@@ -34,11 +30,24 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="zh-CN" suppressHydrationWarning>
+        <head>
+            <link
+                rel="preload"
+                href="https://cdn.jsdelivr.net/npm/@fontsource/lxgw-wenkai@5.2.5/files/lxgw-wenkai-latin-500-normal.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+            />
+            <link
+                rel="preload"
+                href="https://cdn.jsdelivr.net/npm/@fontsource/lxgw-wenkai@5.2.5/files/lxgw-wenkai-latin-700-normal.woff2"
+                as="font"
+                type="font/woff2"
+                crossOrigin="anonymous"
+            />
+        </head>
         <body
             className={`${fontSans.variable} ${fontMono.variable} antialiased`}
-            style={{
-                fontFamily: "var(--font-lxgwwenkai-lite), var(--font-geist-sans), sans-serif",
-            }}
         >
         <ThemeProvider>
             <SearchProvider>
