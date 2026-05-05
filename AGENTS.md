@@ -67,6 +67,14 @@ Personal blog site built with Next.js 16, shadcn/ui (New York style), and Velite
 npx shadcn@latest add <component-name>
 ```
 
+## Adding Dependencies
+
+所有依赖必须锁定精确版本，禁止使用 `^` 或 `~` 范围符：
+
+```bash
+yarn add <package-name> -E    # --exact，锁定精确版本
+```
+
 ## Adding Content
 
 Create `.mdx` files under `content/` organized by category (tech, life, book, tags).
