@@ -89,9 +89,23 @@ Detailed docs live in `docs/`. Reference them before making structural changes.
 |----------|-------------|-----------|
 | `docs/architecture.md` | System architecture, data flow, component tree, route design, state management, styling | Understanding the big picture; planning new features; cross-cutting changes |
 | `docs/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
+| `docs/dependencies.md` | Core dependencies with official docs URLs and descriptions | Adding new libraries; checking official docs |
+| `docs/deployment.md` | Production deployment guide (Debian 12, Standalone + PM2 + nginx + 七牛云) | Deploying or updating production server |
+| `docs/roadmap.md` | Feature roadmap with status tracking | Checking progress; planning next features |
+| `docs/font-optimization.md` | Font loading optimization reference | Troubleshooting font performance |
 | `.opencode/skills/build-and-dev.md` | Build, dev, lint, format workflows | Running dev/build/lint commands |
 | `.opencode/skills/add-blog-content.md` | How to create new MDX blog posts with frontmatter | Adding blog content |
 | `.opencode/skills/add-shadcn-component.md` | How to install shadcn/ui components | Adding UI primitives |
+
+## Roadmap Update Rule
+
+**每完成一个功能或 Bug 修复后，必须更新 `docs/roadmap.md`：**
+1. 在对应表格中找到（或新增）该条目
+2. 将状态改为 `✅ 已完成`
+3. 补充 `文件` 列
+4. 如有新发现的问题，新增条目标记 `🔴 高优先` / `🟡 低优先` / `🐛 Bug修复`
+
+状态图例：`✅ 已完成` `🔴 高优先` `🟡 低优先` `🐛 Bug修复`
 
 ### .velite/ Warning
 

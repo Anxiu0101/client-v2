@@ -1,6 +1,3 @@
-name: tech
+name: Code Practice
 slug: tech
-description: serving as a platform for academic exchange and dissemination of knowledge
-meta:
-  title: Technology
-  description: with a focus on timely updates and research results. It is a reference tool for scholars and professionals in various fields.
+description: Hands-on code practices with Golang, Python and more languages. Linux ops and cloud-native deployment tips.
