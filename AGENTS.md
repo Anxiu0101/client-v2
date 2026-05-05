@@ -61,6 +61,11 @@ Personal blog site built with Next.js 16, shadcn/ui (New York style), and Velite
 - `yarn gen` / `yarn content:gen` — Generate Velite content
 - `yarn content:build` — Clean build Velite content
 
+## Git Commit Rule
+
+**严禁 Agent 擅自执行 `git commit`、`git push` 或任何 git 写入操作。** 所有文件修改、新增、删除等变更，Agent 仅负责在本地完成并展示 diff，由用户检查确认后手动提交。
+
+
 ## Adding shadcn/ui Components
 
 ```bash
