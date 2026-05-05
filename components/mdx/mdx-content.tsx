@@ -15,10 +15,10 @@ const sharedComponents = {
     Alert,
     // Add your global components here
     h2: (props: ComponentPropsWithoutRef<'h2'>) => (
-        <h2 className="scroll-m-20 border-b p-2 text-3xl font-semibold tracking-tight [&+p]:mt-4! first:mt-0" {...props}/>
+        <h2 className="scroll-m-20 border-b py-2 text-3xl font-semibold tracking-tight [&+p]:mt-4! first:mt-0" {...props}/>
     ),
     h3: (props: React.ComponentProps<'h3'>) => (
-        <h3 className="scroll-m-20 text-2xl p-1 font-semibold tracking-tight [&+p]:mt-4! *:[code]:text-2xl" {...props}/>
+        <h3 className="scroll-m-20 text-2xl py-1 font-semibold tracking-tight [&+p]:mt-4! *:[code]:text-2xl" {...props}/>
     ),
     h4: (props: React.ComponentProps<'h4'>) => (
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight [&+p]:mt-3! first:mt-0" {...props} />
@@ -54,7 +54,7 @@ const sharedComponents = {
         <strong className={cn("font-medium", className)} {...props} />
     ),
     ul: ({ className, ...props }: React.ComponentProps<"ul">) => (
-        <ul className={cn("my-3 ml-3 list-disc", className)} {...props} />
+        <ul className={cn("my-5 ml-6 list-disc", className)} {...props} />
     ),
     ol: ({ className, ...props }: React.ComponentProps<"ol">) => (
         <ol className={cn("my-3 ml-3 list-decimal", className)} {...props} />

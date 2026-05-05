@@ -8,6 +8,7 @@ import slugify from "slugify";
 import rehypeSlug from "rehype-slug"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkGfm from "remark-gfm";
 
 import { exec } from 'child_process'
 import { promisify } from 'util'
@@ -226,7 +227,7 @@ export default defineConfig({
     root: "content",
     collections: { posts, categories, tags },
     mdx: {
-        remarkPlugins: [remarkMermaid, remarkAlert],
+        remarkPlugins: [remarkGfm, remarkMermaid, remarkAlert],
         rehypePlugins: [
             rehypeSlug,
             [
