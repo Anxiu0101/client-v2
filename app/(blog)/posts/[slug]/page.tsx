@@ -8,6 +8,7 @@ import { MDXContent } from "@/components/mdx/mdx-content";
 import { siteConfig } from "@/config/site";
 import { getPostBySlug } from "@/lib/velite";
 import { PostToolbar } from "@/components/blog/post-toolbar";
+import type { ReferenceEntry } from "@/types";
 
 export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
     const { slug } = await props.params
@@ -31,7 +32,7 @@ export default async function BlogPost(props: PageProps<'/posts/[slug]'>) {
 
                 <TableOfContent items={post.toc}/>
 
-                <MDXContent code={post.content} components={{}} />
+                <MDXContent code={post.content} components={{}} references={(post as unknown as { references: ReferenceEntry[] }).references} />
 
                 {/* Tags and Metadata */}
                 <div className="mt-8">

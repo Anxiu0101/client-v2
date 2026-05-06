@@ -1,3 +1,5 @@
+'use client'
+
 import * as runtime from 'react/jsx-runtime'
 import React, {ComponentPropsWithoutRef} from "react";
 import { ImageWithFallback } from "@/components/mdx/image-with-fallback";
@@ -5,6 +7,11 @@ import { TravelGallery } from "@/components/mdx/travel-gallery";
 import { CodeBlock } from "@/components/mdx/code-block";
 import { Mermaid } from "@/components/mdx/mermaid";
 import { Alert } from "@/components/mdx/alert";
+import { ReferenceCard } from "@/components/mdx/reference-card";
+import { ReferenceHover } from "@/components/mdx/reference-hover";
+import { ReferenceList } from "@/components/mdx/reference-list";
+import { ReferenceProvider } from "@/components/mdx/reference-context";
+import type { ReferenceEntry } from "@/types";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -13,6 +20,9 @@ const sharedComponents = {
     TravelGallery,
     Mermaid,
     Alert,
+    ReferenceCard,
+    ReferenceHover,
+    ReferenceList,
     // Add your global components here
     h2: (props: ComponentPropsWithoutRef<'h2'>) => (
         <h2 className="scroll-m-20 border-b py-2 text-3xl font-semibold tracking-tight [&+p]:mt-4! first:mt-0" {...props}/>
@@ -103,17 +113,19 @@ const useMDXComponent = (code: string) => {
 interface MDXProps {
     code: string
     components?: Record<string, React.ComponentType>
+    references?: ReferenceEntry[]
 }
 
-export const MDXContent = ({ code, components }: MDXProps) => {
+export const MDXContent = ({ code, components, references }: MDXProps) => {
     const MDXComponent = useMDXComponent(code)
     return (
-        <div className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white">
-            <React.Suspense fallback={<div>loading...</div>}>
-                {/* eslint-disable-next-line react-hooks/static-components */}
-                <MDXComponent components={{ ...sharedComponents, ...components }} />
-            </React.Suspense>
-        </div>
-
+        <ReferenceProvider references={references ?? []}>
+            <div className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white">
+                <React.Suspense fallback={<div>loading...</div>}>
+                    {/* eslint-disable-next-line react-hooks/static-components */}
+                    <MDXComponent components={{ ...sharedComponents, ...components }} />
+                </React.Suspense>
+            </div>
+        </ReferenceProvider>
     )
 }

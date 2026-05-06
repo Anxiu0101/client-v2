@@ -18,6 +18,7 @@
 | ✅ 已完成 | p/blockquote/a 样式修复 | 移除 mb-2、显式 border 色、break-words | `components/mdx/mdx-content.tsx` |
 | 🟡 低优先 | 代码块行号 / 语言标注 | `rehype-pretty-code` 已支持，仅需样式 + 按需开启 | `velite.config.ts`, CSS |
 | 🟡 低优先 | `> [!NOTE]` GFM 告警框 | 块引用风格告警框 remark 解析 | `velite.config.ts` |
+| ✅ 已完成 | **Reference Card 组件** | 文章内引用卡片（论文/书籍/外部链接），BibTeX companion 文件，块级 Card + 行内 HoverCard + 底部自动收集列表。citation-js 解析，per-post 内嵌 references，零额外 HTTP 请求 | `velite.config.ts`, `components/mdx/reference-context.tsx`, `components/mdx/reference-card.tsx`, `components/mdx/reference-hover.tsx`, `components/mdx/reference-list.tsx`, `components/mdx/mdx-content.tsx`, `content/tech/2026/mdx-test.bib` |
 
 ## 内容系统
 
@@ -45,7 +46,6 @@
 | ✅ 已完成 | Tag 详情页 | 按标签过滤文章列表 | `app/(blog)/tag/[id]/page.tsx` |
 | ✅ 已完成 | About 页 | 关于页面 | `app/about/page.tsx` |
 | ✅ 已完成 | **Category 详情页** | 拆分为 3 页：Code Practice（tech，标签分组二级列表）、Book Insight（book，占位）、Life Journal（life，占位）。分组配置外置 `config/category-groups.ts`，prepare 匹配逻辑修复为 slug 匹配 | `app/(blog)/category/[id]/page.tsx`, `config/category-groups.ts`, `content/categories/{tech,book,life}.yml`, `velite.config.ts` |
-| 🔴 高优先 | **Reference Card 组件** | 文章内引用卡片（论文 / 书籍 / 外部链接），支持结构化元数据 + 悬停预览 | `components/blog/reference-card.tsx` |
 | 🟡 低优先 | Category 列表页 | 全部分类网格 | `app/(blog)/category/page.tsx` |
 | 🟡 低优先 | TOC 滚动监听 | IntersectionObserver scroll-spy | 组件内实现 |
 

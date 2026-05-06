@@ -14,6 +14,21 @@ import { exec } from 'child_process'
 import { promisify } from 'util'
 import fs from 'fs'
 import path from 'path'
+import { Cite } from '@citation-js/core'
+import '@citation-js/plugin-bibtex'
+
+interface ReferenceEntry {
+    key: string
+    type: string
+    title: string
+    author?: string
+    year?: number
+    publisher?: string
+    containerTitle?: string
+    url?: string
+    doi?: string
+    isbn?: string
+}
 
 const count = s.object({ total: s.number(), posts: s.number() }).default({ total: 0, posts: 0 })
 
@@ -131,6 +146,49 @@ const generateSlug = (title: string, date: string) => {
     return `${year}-${formattedTitle}`
 }
 
+const referenceEntrySchema = s.object({
+    key: s.string(),
+    type: s.string(),
+    title: s.string(),
+    author: s.string().optional(),
+    year: s.number().optional(),
+    publisher: s.string().optional(),
+    containerTitle: s.string().optional(),
+    url: s.string().optional(),
+    doi: s.string().optional(),
+    isbn: s.string().optional(),
+})
+
+const parseBibFile = async (mdxPath: string): Promise<ReferenceEntry[]> => {
+    const bibPath = mdxPath.replace(/\.mdx$/, '.bib')
+    const candidates = [
+        bibPath,
+        path.join(process.cwd(), bibPath),
+        path.join(process.cwd(), 'content', bibPath),
+    ]
+    const validPath = candidates.find(p => fs.existsSync(p))
+    if (!validPath) return []
+    try {
+        const bibContent = fs.readFileSync(validPath, 'utf-8')
+        const cite = new Cite(bibContent)
+        return cite.data.map(entry => ({
+            key: entry.id,
+            type: entry.type,
+            title: entry.title,
+            author: entry.author?.map(a => `${a.family}, ${a.given}`).join('; '),
+            year: entry.issued?.['date-parts']?.[0]?.[0],
+            publisher: entry.publisher,
+            containerTitle: entry['container-title'],
+            url: entry.URL,
+            doi: entry.DOI,
+            isbn: entry.ISBN,
+        }))
+    } catch (e) {
+        console.warn(`Failed to parse bib file for ${mdxPath}:`, e)
+        return []
+    }
+}
+
 const computedFields = <T extends {
     title: string,
     date: string,
@@ -179,9 +237,15 @@ const postBlogSchema = s.object({
         draft: s.boolean().default(false),
         comments: s.boolean().default(false),   // enable github comment or not.
         refLink: s.string().optional(),
+        references: s.array(referenceEntrySchema).default([]),
     })
     // more additional fields (computed fields)
     .transform(computedFields)
+    // parse companion BibTeX file
+    .transform(async (data, { meta }) => {
+        const references = await parseBibFile(meta.path)
+        return { ...data, references }
+    })
     // recover slug unique validation, bases on auto generate slug.
     .refine(data => data.slug, 'slug cannot be null')
 

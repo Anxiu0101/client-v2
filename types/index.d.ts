@@ -49,6 +49,19 @@ export type BlogNavConfig = {
     AboutMeNav: ZNavItem,
 }
 
+export interface ReferenceEntry {
+    key: string
+    type: string
+    title: string
+    author?: string
+    year?: number
+    publisher?: string
+    containerTitle?: string
+    url?: string
+    doi?: string
+    isbn?: string
+}
+
 // export type MarketingConfig = {
 //     mainNav: MainNavItem[]
 // }

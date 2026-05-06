@@ -13,6 +13,8 @@
     "content:build": "velite --clean --verbose"
   },
   "dependencies": {
+    "@citation-js/core": "0.7.21",
+    "@citation-js/plugin-bibtex": "0.7.21",
     "@hookform/resolvers": "5.2.2",
     "@mdx-js/loader": "3.1.1",
     "@mdx-js/react": "3.1.1",
