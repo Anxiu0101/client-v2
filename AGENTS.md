@@ -102,6 +102,7 @@ Detailed docs live in `docs/`. Reference them before making structural changes.
 |----------|-------------|-----------|
 | `docs/architecture.md` | System architecture, data flow, component tree, route design, state management, styling | Understanding the big picture; planning new features; cross-cutting changes |
 | `docs/features/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
+| `docs/features/velite-relationships.md` | Data layer query tools — `pick`, `filters`, `sorters`, query paradigm, entity functions, relationship patterns (Post/Category/Tag/Navigation) | Writing data access code; understanding entity relationships; adding new query functions |
 | `docs/features/references.md` | Reference Card system — BibTeX companion files, remarkReference plugin, block card + inline hover + auto-collected list, citation-js parsing, per-post data flow | Writing references in articles; debugging citation issues; extending reference components |
 | `docs/dependencies.md` | Core dependencies with official docs URLs and descriptions | Adding new libraries; checking official docs |
 | `docs/deployment.md` | Production deployment guide (Debian 12, Standalone + PM2 + nginx + 七牛云) | Deploying or updating production server |
