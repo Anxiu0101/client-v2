@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ExternalLinkIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -34,14 +35,26 @@ export function ReferenceCard({ citeKey, className }: { citeKey: string; classNa
     return <div className="text-sm text-muted-foreground italic">Unknown reference: {citeKey}</div>
   }
 
+  const titleNode = ref.url ? (
+    <Link
+      href={ref.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:underline underline-offset-4 decoration-muted-foreground/40"
+    >
+      {ref.title}
+    </Link>
+  ) : (
+    ref.title
+  )
+
   return (
     <Card size="sm" className={cn('my-6', className)}>
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
             <CardTitle className="text-base leading-snug">
-              <Badge variant="secondary" className="mr-1">{getTypeLabel(ref.type)}</Badge>
-              {ref.title}
+              <Badge variant="secondary" className="mr-2">{getTypeLabel(ref.type)}</Badge> {titleNode}
             </CardTitle>
           </div>
           {ref.doi && (

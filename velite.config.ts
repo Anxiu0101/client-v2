@@ -39,6 +39,7 @@ interface MdxNode {
   lang?: string
   value?: string
   name?: string
+  identifier?: string
   attributes?: { type: string; name: string; value: string }[]
   children?: MdxNode[]
 }
@@ -57,6 +58,19 @@ function toJsxNode(name: string, attrs: Record<string, string>, children?: MdxNo
       value: v,
     })),
     children: children ?? [],
+  }
+}
+
+function toJsxTextNode(name: string, attrs: Record<string, string>) {
+  return {
+    type: 'mdxJsxTextElement',
+    name,
+    attributes: Object.entries(attrs).map(([n, v]) => ({
+      type: 'mdxJsxAttribute' as const,
+      name: n,
+      value: v,
+    })),
+    children: [],
   }
 }
 
@@ -111,6 +125,57 @@ function remarkAlert() {
         i++
       }
     }
+    if (tree.children) walk(tree.children)
+  }
+}
+
+const CITATION_RE = /\[\^([a-zA-Z][\w.-]*)\]/g
+
+function remarkReference() {
+  return (tree: MdxTree) => {
+    const citationKeys = new Set<string>()
+
+    const splitText = (text: string): MdxNode[] => {
+      const parts: MdxNode[] = []
+      let lastIndex = 0
+      let match: RegExpExecArray | null
+      CITATION_RE.lastIndex = 0
+      while ((match = CITATION_RE.exec(text)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push({ type: 'text', value: text.slice(lastIndex, match.index) })
+        }
+        citationKeys.add(match[1])
+        parts.push(toJsxTextNode('ReferenceHover', { citeKey: match[1] }))
+        lastIndex = match.index + match[0].length
+      }
+      if (lastIndex < text.length) {
+        parts.push({ type: 'text', value: text.slice(lastIndex) })
+      }
+      return parts.length > 0 ? parts : [{ type: 'text', value: text }]
+    }
+
+    const walk = (nodes: MdxNode[]) => {
+      let i = 0
+      while (i < nodes.length) {
+        const node = nodes[i]
+        if (node.type === 'text' && node.value) {
+          const parts = splitText(node.value)
+          if (parts.length > 1 || parts[0]?.value !== node.value) {
+            nodes.splice(i, 1, ...parts)
+            i += parts.length
+            continue
+          }
+        } else if (node.type === 'footnoteDefinition' && node.identifier && citationKeys.has(node.identifier)) {
+          nodes.splice(i, 1)
+          i--
+          continue
+        } else if (node.children) {
+          walk(node.children)
+        }
+        i++
+      }
+    }
+
     if (tree.children) walk(tree.children)
   }
 }
@@ -291,7 +356,7 @@ export default defineConfig({
     root: "content",
     collections: { posts, categories, tags },
     mdx: {
-        remarkPlugins: [remarkGfm, remarkMermaid, remarkAlert],
+        remarkPlugins: [remarkGfm, remarkMermaid, remarkAlert, remarkReference],
         rehypePlugins: [
             rehypeSlug,
             [

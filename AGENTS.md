@@ -101,11 +101,12 @@ Detailed docs live in `docs/`. Reference them before making structural changes.
 | Document | Description | Read When |
 |----------|-------------|-----------|
 | `docs/architecture.md` | System architecture, data flow, component tree, route design, state management, styling | Understanding the big picture; planning new features; cross-cutting changes |
-| `docs/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
+| `docs/features/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
+| `docs/features/references.md` | Reference Card system — BibTeX companion files, remarkReference plugin, block card + inline hover + auto-collected list, citation-js parsing, per-post data flow | Writing references in articles; debugging citation issues; extending reference components |
 | `docs/dependencies.md` | Core dependencies with official docs URLs and descriptions | Adding new libraries; checking official docs |
 | `docs/deployment.md` | Production deployment guide (Debian 12, Standalone + PM2 + nginx + 七牛云) | Deploying or updating production server |
 | `docs/roadmap.md` | Feature roadmap with status tracking | Checking progress; planning next features |
-| `docs/font-optimization.md` | Font loading optimization reference | Troubleshooting font performance |
+| `docs/features/font-optimization.md` | Font loading optimization reference | Troubleshooting font performance |
 | `.opencode/skills/build-and-dev.md` | Build, dev, lint, format workflows | Running dev/build/lint commands |
 | `.opencode/skills/add-blog-content.md` | How to create new MDX blog posts with frontmatter | Adding blog content |
 | `.opencode/skills/add-shadcn-component.md` | How to install shadcn/ui components | Adding UI primitives |

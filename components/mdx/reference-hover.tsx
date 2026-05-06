@@ -19,7 +19,6 @@ export function ReferenceHover({ citeKey }: { citeKey: string }) {
 
   const keys = getOrderedKeys()
   const index = keys.indexOf(citeKey) + 1
-
   const ref = getEntry(citeKey)
 
   if (!ref) {
