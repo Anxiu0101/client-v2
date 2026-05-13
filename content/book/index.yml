@@ -1,0 +1,37 @@
+- title: "Deep Learning"
+  authors:
+    - "Goodfellow, Ian"
+    - "Bengio, Yoshua"
+    - "Courville, Aaron"
+    - "Hunt, Andrew"
+    - "Thomas, David"
+    - "Hunt, Andrew"
+    - "Thomas, David"
+    - "Hunt, Andrew"
+    - "Thomas, David"
+  year: 2016
+  isbn: "978-0262035613"
+  cover: /images/books/9780262035613.jpg
+  addedDate: "2025-02-25"
+  status: reading
+  description: "The foundational textbook on deep neural networks."
+
+- title: "The Pragmatic Programmer"
+  authors:
+    - "Hunt, Andrew"
+    - "Thomas, David"
+  year: 1999
+  isbn: "978-0201616224"
+  cover: /images/books/9780201616224.jpg
+  addedDate: "2025-03-01"
+  status: reading
+  description: "Your journey to mastery: timeless tips for software craftsmanship."
+
+- title: "The Pragmatic Programmer The Pragmatic Programmer The Pragmatic Programmer The Pragmatic Programmer The Pragmatic Programmer The Pragmatic Programmer"
+  authors:
+    - "Hunt, Andrew"
+  year: 1999
+  isbn: "978-0201226224"
+  addedDate: "2025-03-01"
+  status: reading
+  description: "Your journey to mastery: timeless tips for software craftsmanship."

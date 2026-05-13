@@ -81,7 +81,10 @@
 |------|------|------|------|
 | ✅ 已完成 | 类型统一 | `PostInfo` / `SearchItem` 合并为 `PostCardData` | `lib/velite.ts` |
 | ✅ 已完成 | 架构文档 | 系统图、组件树、数据流、路由 | `docs/architecture.md` |
-| ✅ 已完成 | Velite 管线文档 | 集合定义、schema、prepare 钩子、消费者模式 | `docs/velite-pipeline.md` |
+| ✅ 已完成 | Velite 管线文档 | 集合定义、schema、prepare 钩子、消费者模式 | `docs/features/velite-pipeline.md` |
+| ✅ 已完成 | Velite 关系文档 | 数据查询工具、关系模式 | `docs/features/velite-relationships.md` |
+| ✅ 已完成 | Reference Card 文档 | 引用系统完整文档 | `docs/features/references.md` |
+| ✅ 已完成 | 字体优化文档 | 字体加载优化方案 | `docs/features/font-optimization.md` |
 | ✅ 已完成 | 进度跟踪 | 本文件 | `docs/roadmap.md` |
 | 🟡 低优先 | 完善 `getRecentPostsByCategory` | 参数 `category` 未使用 | `lib/velite.ts:53` |
 

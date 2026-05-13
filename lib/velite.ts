@@ -2,9 +2,11 @@ import {
     type PostBlog,
     type Category,
     type Tag,
+    type BookList,
     posts,
     categories,
     tags,
+    bookList,
 } from 'velite-generate'
 
 type Filter<T> = (value: T, index: number, array: T[]) => boolean
@@ -107,7 +109,7 @@ export interface PostNavigationResult {
 }
 
 export const getPostNavigation = (slug: string): PostNavigationResult => {
-    const sorted = getPosts(undefined, filters.none, sorters.dateDesc)
+    const sorted = getPosts(['title', 'permalink', 'slug'], filters.none, sorters.dateDesc)
     const index = sorted.findIndex(p => p.slug === slug)
     if (index === -1) return { prev: null, next: null }
 
@@ -182,6 +184,42 @@ export const getCategoryBySlug = <F extends keyof Category>(
 ): Pick<Category, F> | undefined => {
     const cat = categories.find(c => c.slug === slug)
     return cat ? pick(cat, fields) : undefined
+}
+
+// ─── BookList ─────────────────────────────────────────────
+
+// const bookByIsbn = new Map(bookList.filter(b => b.isbn).map(b => [b.isbn!, b]))
+
+export const getBookList = <F extends keyof BookList>(
+    fields?: F[],
+    filter: Filter<BookList> = filters.none,
+    sorter: Sorter<BookList> = sorters.titleAsc,
+    limit: number = Infinity,
+    offset: number = 0,
+): Pick<BookList, F>[] => {
+    return bookList
+        .filter(filter)
+        .sort(sorter)
+        .slice(offset, offset + limit)
+        .map(book => pick(book, fields))
+}
+
+export const getBookListCount = (filter: Filter<BookList> = filters.none): number => {
+    return bookList.filter(filter).length
+}
+
+export const getBookByIsbn = <F extends keyof BookList>(
+    isbn: string,
+    fields?: F[],
+): Pick<BookList, F> | undefined => {
+    const book = bookList.find(b => b.isbn == isbn)
+    return book ? pick(book, fields) : undefined
+}
+
+export const getReadingBooks = <F extends keyof BookList>(
+    fields?: F[],
+): Pick<BookList, F>[] => {
+    return getBookList(fields, b => b.status === 'reading')
 }
 
 // ─── PostCardData ─────────────────────────────────────────

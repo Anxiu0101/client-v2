@@ -10,4 +10,5 @@ export const siteConfig: SiteConfig = {
         github: "https://github.com/Anxiu0101",
         feed: "/rss"
     },
+    email: "anxiu0101@gmail.com",
 }

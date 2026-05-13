@@ -10,18 +10,20 @@
 
 ## Content Model
 
-Velite 产出三类数据集合，对应三种 TypeScript 类型：
+Velite 产出四类数据集合，对应四种 TypeScript 类型：
 
 | 集合 | 类型 | 数据源 | 生成方式 |
 |------|------|--------|----------|
 | `posts` | `PostBlog[]` | `content/**/*.mdx` | Schema validation + computed fields + MDX compilation |
 | `categories` | `Category[]` | `content/categories/*.yml` | Schema validation + prepare hook count |
 | `tags` | `Tag[]` | `content/tags/index.yml` | Schema validation + prepare hook count |
+| `bookList` | `BookList[]` | `content/books/*.yml` | Schema validation |
 
 各集合之间的关系由**数据而非 schema** 定义：
 - `PostBlog.category: string`——值为 `Category.slug`
 - `PostBlog.tags: string[]`——值为 `Tag.name` 数组
 - `PostBlog.references: ReferenceEntry[]`——由 companion `.bib` 解析
+- `PostBlog.isbn: string`——值为 `BookList.isbn`（book 分类文章通过 ISBN 关联书籍）
 
 查询关系时，通过函数式编程做 join，而不是在 Velite schema 中定义外键。
 
@@ -147,6 +149,15 @@ const tagged = getPostsCount(p => p.tags.includes('Python'))
 | `getCategoriesCount(filter?)` | 分类计数 | `number` |
 | `getCategoryBySlug(slug, fields?)` | 按 slug 查单个分类 | `Pick<Category, F> \| undefined` |
 
+### BookList
+
+| 函数 | 说明 | 签名 |
+|------|------|------|
+| `getBookList(fields?, filter?, sorter?, limit?, offset?)` | 通用书籍查询 | `Pick<BookList, F>[]` |
+| `getBookListCount(filter?)` | 书籍计数 | `number` |
+| `getBookByIsbn(isbn, fields?)` | 按 ISBN 查单个书籍（O(1) Map 索引） | `Pick<BookList, F> \| undefined` |
+| `getReadingBooks(fields?)` | 状态为"在读"的书籍 | `Pick<BookList, F>[]` |
+
 ### PostCardData
 
 | 函数 | 说明 | 签名 |
@@ -246,6 +257,37 @@ console.log(cat?.count.total) // 22
 import { getPostsByTag } from '@/lib/velite'
 
 const pythonPosts = getPostsByTag('Python', ['title', 'date', 'description'], sorters.dateDesc)
+```
+
+### 7. Post ↔ Book（通过 ISBN 关联）
+
+book 分类的 post 可在 frontmatter 中声明 `isbn`，构建时 prepare hook 自动注入匹配的 BookList 引用至 `post.references[]`。运行时也可通过工具函数查询：
+
+```typescript
+import { getBookByIsbn, getReadingBooks } from '@/lib/velite'
+
+// 按 ISBN 查书籍（O(1) Map 索引）
+const book = getBookByIsbn('978-0262035613', ['title', 'authors', 'year'])
+
+// 获取所有"在读"状态的书籍（供 BookCarousel 使用）
+const reading = getReadingBooks(['title', 'authors', 'year', 'isbn', 'cover'])
+```
+
+数据流：
+
+```
+Build Time:
+  prepare hook
+    → ISBN → Book 索引 (Map)
+    → 对每篇有 isbn 的 post，自动注入 book 引用到 post.references[]
+
+Runtime:
+  getBookByIsbn(isbn, fields?)
+    → 模块级 Map 查找，O(1)
+    → pick 按需返回字段
+  
+  getReadingBooks(fields?)
+    → getBookList 封装，filter: status === 'reading'
 ```
 
 ## Future Relationships

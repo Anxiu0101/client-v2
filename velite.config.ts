@@ -1,5 +1,5 @@
 import {
-    s, defineConfig,
+    s, z, defineConfig,
     defineSchema,
     defineCollection,
 } from 'velite'
@@ -302,6 +302,7 @@ const postBlogSchema = s.object({
         draft: s.boolean().default(false),
         comments: s.boolean().default(false),   // enable github comment or not.
         refLink: s.string().optional(),
+        isbn: s.string().optional(),
         references: s.array(referenceEntrySchema).default([]),
     })
     // more additional fields (computed fields)
@@ -352,9 +353,26 @@ const tags = defineCollection({
         .transform(data => ({ ...data, permalink: `/tags/${data.slug}` }))
 })
 
+const bookList = defineCollection({
+    name: 'BookList',
+    pattern: 'book/index.yml',
+    schema: s
+        .object({
+            title: s.string().max(99),
+            authors: s.array(s.string()),
+            year: s.number(),
+            isbn: s.string().optional(),
+            cover: s.string().optional(),
+            addedDate: s.isodate(),
+            finishedDate: s.isodate().optional(),
+            status: z.enum(['reading', 'finished', 'unread']),
+            description: s.string().max(999).optional(),
+        })
+})
+
 export default defineConfig({
     root: "content",
-    collections: { posts, categories, tags },
+    collections: { posts, categories, tags, bookList },
     mdx: {
         remarkPlugins: [remarkGfm, remarkMermaid, remarkAlert, remarkReference],
         rehypePlugins: [
@@ -379,8 +397,38 @@ export default defineConfig({
             ],
         ],
     },
-    prepare: ({ categories, tags, posts }) => {
+    prepare: ({ categories, tags, posts, bookList }) => {
         const docs = posts.filter(i => process.env.NODE_ENV !== 'production' || !i.draft)
+
+        // ISBN → Book index (primary key equivalent)
+        const bookByIsbn = new Map(bookList.filter(b => b.isbn).map(b => [b.isbn, b]))
+
+        // Auto-inject book references for book posts with matching ISBN
+        for (const doc of docs) {
+            if (doc.isbn && bookByIsbn.has(doc.isbn)) {
+                const book = bookByIsbn.get(doc.isbn)!
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const hasExisting = (doc.references || []).some((r: any) => r.key === doc.isbn)
+                if (!hasExisting) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    ;(doc as any).references = [
+                        ...(doc.references || []),
+                        {
+                            key: doc.isbn,
+                            type: 'book',
+                            title: book.title,
+                            author: book.authors.join('; '),
+                            year: book.year,
+                            isbn: book.isbn,
+                            publisher: undefined,
+                            containerTitle: undefined,
+                            url: undefined,
+                            doi: undefined,
+                        },
+                    ]
+                }
+            }
+        }
 
         // missing categories, tags from posts or courses inlined
         const categoriesFromDoc = Array.from(new Set(docs.flatMap(i => i.category))).filter(i => categories.find(j => j.slug === i) == null)

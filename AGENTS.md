@@ -100,6 +100,7 @@ Detailed docs live in `docs/`. Reference them before making structural changes.
 
 | Document | Description | Read When |
 |----------|-------------|-----------|
+| `docs/session-context.md` | **Start here!** Quick project status recap for new sessions | First opening the project |
 | `docs/architecture.md` | System architecture, data flow, component tree, route design, state management, styling | Understanding the big picture; planning new features; cross-cutting changes |
 | `docs/features/velite-pipeline.md` | Content build pipeline — collections, schemas, MDX processing, prepare hook, search-index.json, consumer patterns | Modifying the blog content system; debugging content issues; adding collections |
 | `docs/features/velite-relationships.md` | Data layer query tools — `pick`, `filters`, `sorters`, query paradigm, entity functions, relationship patterns (Post/Category/Tag/Navigation) | Writing data access code; understanding entity relationships; adding new query functions |

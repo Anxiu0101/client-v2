@@ -15,6 +15,7 @@
 
 | 领域 | 成果 |
 |------|------|
+| **Reference Card 系统** | ✅ 完整实现：BibTeX companion 文件、remarkReference 插件、块级引用卡片、行内悬浮引用、底部自动收集列表 |
 | Category 页 | 拆分为 3 页（Code Practice / Book Insight / Life Journal），tech 按 tag 分组二级列表，book/life 占位 |
 | Category YML | tech.yml → Code Practice，life.yml → Life Journal，新建 book.yml → Book Insights，prepare 钩子改为 slug 匹配 |
 | 脚注 | 安装 `remark-gfm@4.0.1` 并注册到 remarkPlugins，MDX 可直接用 `[^id]` 语法 |
@@ -65,7 +66,6 @@ content/
 
 | 优先级 | 任务 | 说明 |
 |--------|------|------|
-| 🔴 高优先 | **Reference Card 组件** | 文章内引用卡片，支持论文/书籍/外部链接，带结构化元数据和悬停预览 |
 | 🟡 低优先 | TOC 滚动监听 | IntersectionObserver scroll-spy |
 | 🟡 低优先 | 代码块行号 / 语言标注 | rehype-pretty-code 已支持，只需样式 |
 | 🟡 低优先 | `getTagList()` 完善 | lib/velite.ts 空实现 |

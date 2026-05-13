@@ -35,6 +35,7 @@ export type SiteConfig = {
         github: string
         feed: string
     }
+    email?: string
 }
 
 export type BlogConfig = {

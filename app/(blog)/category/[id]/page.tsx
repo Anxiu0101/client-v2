@@ -1,8 +1,12 @@
 import { categories, posts } from "velite-generate"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { toPostCardProps } from "@/lib/velite"
+import { Mail } from "lucide-react"
+import { toPostCardProps, getReadingBooks } from "@/lib/velite"
 import { techCategoryGroups } from "@/config/category-groups"
+import { siteConfig } from "@/config/site"
+import { PostCard } from "@/components/blog/post-card"
+import { BookCarousel } from "@/components/blog/book-carousel"
 
 interface CategoryPageProps {
   params: Promise<{ id: string }>
@@ -60,6 +64,49 @@ function Placeholder({ name }: { name: string }) {
   )
 }
 
+function BookInsightsPage() {
+  const readingBooks = getReadingBooks()
+  const bookPosts = toPostCardProps(posts.filter((p) => p.category === "book"))
+
+  return (
+    <>
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">近期在读</h2>
+        <BookCarousel books={readingBooks} />
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">已读后感</h2>
+        {bookPosts.length > 0 ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            {bookPosts.map((post) => (
+              <PostCard key={post.permalink} {...post} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-muted-foreground">暂无文章</p>
+        )}
+      </section>
+
+      <section className="text-center py-8 border-t border-border/40">
+        <h2 className="text-xl font-semibold mb-2">向我推荐</h2>
+        <p className="text-muted-foreground mb-4">
+          有好书推荐给我吗？欢迎通过邮箱告诉我
+        </p>
+        {siteConfig.email && (
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            <Mail className="size-4" />
+            {siteConfig.email}
+          </a>
+        )}
+      </section>
+    </>
+  )
+}
+
 export default async function CategoryDetailPage({ params }: CategoryPageProps) {
   const { id } = await params
   const category = categories.find((c) => c.slug === id)
@@ -77,6 +124,8 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
 
       {id === "tech" ? (
         <CodePracticePage />
+      ) : id === "book" ? (
+        <BookInsightsPage />
       ) : (
         <Placeholder name={category.name} />
       )}
