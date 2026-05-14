@@ -51,7 +51,8 @@ export function formatAuthors(author?: string): string {
   if (!author) return ''
   const parts = author.split('; ').map(a => {
     const [last, first] = a.split(', ')
-    return first ? `${first} ${last}` : last
+    if (!first || first === 'undefined') return last
+    return `${first} ${last}`
   })
   if (parts.length === 1) return parts[0]
   if (parts.length === 2) return `${parts[0]} and ${parts[1]}`

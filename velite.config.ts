@@ -240,7 +240,7 @@ const parseBibFile = async (mdxPath: string): Promise<ReferenceEntry[]> => {
             key: entry.id,
             type: entry.type,
             title: entry.title,
-            author: entry.author?.map(a => `${a.family}, ${a.given}`).join('; '),
+            author: entry.author?.map(a => a.given ? `${a.family}, ${a.given}` : a.family).join('; '),
             year: entry.issued?.['date-parts']?.[0]?.[0],
             publisher: entry.publisher,
             containerTitle: entry['container-title'],

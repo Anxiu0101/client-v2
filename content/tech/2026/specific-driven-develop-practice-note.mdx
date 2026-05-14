@@ -8,14 +8,73 @@ comments: true
 description: 'AI 智能体项目开发中的 Specific-Driven-Development 实践笔记，探讨如何通过明确的需求定义驱动智能体行为。'
 ---
 
+## 参考资料
 
+### 阿里云开发者
 
-阿里方案[^yan2025sdd]  [^wang2025sdd]
+- SDD 与 Harness 治理[^wang2025harnessSdd]
+- 5 人 7 天 SDD 实践[^wang2025sddPractice]
 
-美团方案[^meituan_br2026aicoding_elva]
+### 腾讯技术工程
 
+- Skill 工程化设计[^tencent2025SkillAlgo]
 
+  提供了关于 Skill 和 Workflow 的实践方案，作者通过设计相同的 Skill 和 Workflow 结构，来保证任何 Skill 可以便利的作为 Workflow 的一部分被调用。
 
+  对于 Skill 设计的关键在于：帮助模型固定可信信息。
+  编写一个 Skill 的思路主要是对于模型建立事实边界，在没有任何提示的环境中要求模型编写一个前端页面，和确定了主要依赖，设计风格后设计的网页相比需要更多次数的调整才能符合需求。在这个项目的范围/域中，主要依赖、设计风格等要素就是本项目的可信边界。
 
+  创建一个 Skill，是抽象人类开发流程中的行为，并帮助模型进行复用。如果这个项目新增新接口是一个常态化的流程，那么固定这个工作步骤，能够极为有效地要求模型完成符合预期地行为。
+
+  为了管理模型的Skill，作者为他的项目编写了一个 CLI，让模型进入任何一个工作流的过程中，都能够获得确定的步骤内容。这本质上是进行 Memory Management。在拥有庞大规模的 Rules 时，这个 CLI 和封装的 Skill 就是将不同场景进行分类，并且提供对应场景中有效的 Rules，避免模型的注意力受到长上下文的干扰。
+
+  > 原文中 **让 Skill 的能力可以无限扩展，而 Agent 的认知负担始终恒定。** 这句话，笔者认为同样可以理解为对 Rules 的解耦。每一个场景(Workflow)内的 Rules 是内聚的，但是模型调用的各个 Workflow 又是解耦的。
+
+  对于 Workflow 的设计，作者提出理念：“**Workflow 是文件，不是代码**”。（Coding Agent 的不断增长，某种意义上是重提软件工程中，软件=文档+代码+数据 的理念。文档在传统开发流程中通常来说是更被忽视一部分，在 Post LLM 时代中反过来变为指导代码生成的主要依赖。）
+
+  该文作者对于 Workflow 的设计披露了两个关键细节：
+
+  1. **设计细节一：步进式披露——Agent 永远只看到当前一步**（但是这对于到底有多少的上文知识需要被提供并没有）
+
+- AI Agent 探索之路[^tencent2025AgentJourney]
+
+- Harness 与知识沉淀[^tencent2025HarnessKnowledge]
+
+### 得物技术
+
+- Claude Code Spec Coding[^dewu2025ClaudeSpecCoding]
+- BP Claw FlinkSpec 实践[^dewu2025BpClawFlinkSpec]
+- Harness + SDD 全栈开发[^dewu2025HarnessSddFullstack]
+- Agent 驱动安全审计[^dewu2025AgentGatewayAudit]
+- AI 驱动自动化测试[^dewu2025AiTestAutomation]
+- 生成式召回落地[^dewu2025GenRecall]
+- 组件复用 Skill[^dewu2025ComponentSkill]
+- 财务数仓 Claude 实践[^dewu2025FinanceDwhClaude]
+- 日志诊断 Skill[^dewu2025LogDiagnosisSkill]
+- Claude 数仓集成[^dewu2025ClaudeDewuDwh]
+- Claude Code + OpenSpec[^dewu2025ClaudeOpenSpec]
+
+### 百度 Geek 说
+
+- Agent 稳定性治理[^baidu2025AgentStability]
+- AI Coding 入门指南[^baidu2025AiCodingGuide]
+
+### 哔哩哔哩技术
+
+- AI 动效平台 Neon Vibe Motion[^bilibili2025NeonVibeMotion]
+- 游戏分析 Agent[^bilibili2025GameAnalytics]
+- JS 云函数到 MCP[^bilibili2025JsCfnMcp]
+
+### vivo 互联网技术
+
+- OpenClaw 架构设计[^vivo2025OpenClawArch]
+- Vibe Coding 与贾维斯[^vivo2025VibeCodingJarvis]
+- Chat 模式交互范式[^vivo2025ChatParadigm]
+
+### 其他
+
+- 小红书 PMO Agentic 实践[^redtech2025Agentic]
+- 字节跳动 TRAE 部署[^bytedance2025TraeDeploy]
+- 转转 Cursor MCP 修复[^zhuanzhuan2025CursorMcpRepair]
 
 <ReferenceList />
