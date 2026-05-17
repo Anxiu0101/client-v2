@@ -7,6 +7,12 @@
       "skillPath": "skills/iga-pages/SKILL.md",
       "computedHash": "06c1b434b4685e7d564aee63c241b1d20d828378cc7a5174bbbcd78c490902cc"
     },
+    "next-best-practices": {
+      "source": "vercel-labs/next-skills",
+      "sourceType": "github",
+      "skillPath": "skills/next-best-practices/SKILL.md",
+      "computedHash": "11b1a7fd05148a807d8c14bdfa0e652b92246aeac9cd6a4223e9d3245163bc78"
+    },
     "shadcn-ui": {
       "source": "google-labs-code/stitch-skills",
       "sourceType": "github",
