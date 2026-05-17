@@ -49,3 +49,6 @@ next-env.d.ts
 public/search-index.json
 # Oh My OpenCode local config (Windows/macOS/Linux)
 **/.oh-my-opencode/config.json
+
+.iga/
+.agents/

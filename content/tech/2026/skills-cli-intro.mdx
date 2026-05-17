@@ -1,0 +1,191 @@
+---
+title: "Skills CLI：AI Agent 的插件管理器"
+date: 2026-05-17
+tags: ["tools", "ai", "frontend"]
+published: true
+draft: false
+description: "Skills CLI 是 Vercel 推出的 AI Agent 技能管理工具。本文介绍核心概念、命令用法与生态现状。"
+---
+
+如果你使用过 AI 编码 Agent（Claude Code、Cursor、OpenCode 等），大概会遇到这样一个问题：Agent 虽然能力通用，但在特定领域（React 最佳实践、飞书 API、部署流程）经常显得"不太懂行"——需要你反复提示才能给出符合预期的结果。
+
+为 Agent 提供领域知识的方式，从最原始的对话中口头交代，到自定义 Instructions 文件，都没有一个标准化的交付形态。直到 [Vercel](https://vercel.com) 推出了 [Skills CLI](https://github.com/vercel-labs/skills)——一套为 AI Agent 打造的技能管理生态。
+
+这篇文章从用户视角出发，介绍 Skills CLI 是什么、怎么用、生态长什么样，以及如何创建自己的 Skill。
+
+## 快速体验
+
+Skills CLI 无需安装，直接通过 `npx` 即可使用：
+
+```shell
+npx skills find react
+```
+
+这会交互式搜索与 React 相关的技能。如果想直接查看已安装的技能：
+
+```shell
+npx skills list
+```
+
+从安装一个现成的 Skill 开始，是最快的上手方式：
+
+```shell
+npx skills add vercel-labs/agent-skills@web-design-guidelines -g -y
+```
+
+`-g` 表示安装到全局（用户级别），`-y` 跳过确认。几秒后 skill 文件就会写入 Agent 的配置目录，下一次对话 Agent 就拥有了该领域知识。
+
+## 核心概念
+
+Skills CLI 的核心思路很简单：**给 AI Agent 提供可复用的程序化知识**（procedural knowledge）。每个 Skill 本质上是一个包含 `SKILL.md`（及其辅助文件）的目录，Agent 在对话中会自动加载并理解其中的内容。
+
+它与传统的 npm packages 有着本质区别：
+
+| 维度 | Skills | npm Packages |
+|------|--------|-------------|
+| **本质** | 程序化知识文本（Markdown + 示例代码） | 可执行 JavaScript 代码 |
+| **执行者** | AI Agent 阅读并理解 | Node.js 运行时执行 |
+| **安装产物** | `SKILL.md` 等文档文件 | `node_modules/` 中的代码和依赖树 |
+| **依赖管理** | 无依赖树，单文件/单目录 | 复杂依赖解析、lockfile |
+| **安全风险** | 低（纯文本知识注入） | 中-高（任意代码执行） |
+| **分发方式** | GitHub 仓库直接拉取 | npm registry 中心化分发 |
+
+简单来说：npm packages 是**给机器执行的代码**；Skills 是**给 AI Agent 阅读的知识**。
+
+## 核心命令
+
+`npx skills` 提供了一套完整的技能生命周期管理命令：
+
+| 命令 | 功能 | 常用示例 |
+|------|------|---------|
+| `find [query]` | 搜索技能 | `npx skills find typescript` |
+| `add <package>` | 安装技能 | `npx skills add shadcn/ui@shadcn -g` |
+| `remove [name]` | 移除技能 | `npx skills remove web-design` |
+| `list, ls` | 列出已安装技能 | `npx skills ls -g` |
+| `update [name]` | 更新技能 | `npx skills update` |
+| `init [name]` | 创建自定义技能 | `npx skills init my-skill` |
+
+### 安装与移除
+
+```shell
+# 安装
+npx skills add shadcn/ui@shadcn -g        # 全局安装
+npx skills add shadcn/ui@shadcn           # 项目级安装
+npx skills add shadcn/ui@shadcn --all     # 安装到所有 Agent
+
+# 移除
+npx skills remove                         # 交互式移除
+npx skills remove web-design              # 按名称移除
+npx skills rm --global frontend-design    # 从全局移除（rm 是 remove 的 alias）
+npx skills remove --all                   # 移除所有技能
+```
+
+### 查看与管理
+
+```shell
+npx skills ls                             # 查看项目级技能
+npx skills ls -g                          # 查看全局技能
+npx skills ls -a claude-code              # 查看特定 Agent 的技能
+npx skills ls --json                      # JSON 格式输出
+npx skills update                         # 更新所有技能
+npx skills update my-skill                # 更新单个技能
+```
+
+## 生态系统
+
+[skills.sh](https://skills.sh) 是 Skill 的官方排行榜，累计追踪 38 万+ 次安装。排行榜分为 All Time、Trending（24h）、Hot 三种视图。
+
+当前头部技能：
+
+| 排名 | 技能 | 发布者 | 安装量 |
+|------|------|--------|--------|
+| #1 | find-skills | vercel-labs/skills | 1,600,000 |
+| #2 | frontend-design | anthropics/skills | 420,600 |
+| #3 | vercel-react-best-practices | vercel-labs/agent-skills | 404,100 |
+| #4 | web-design-guidelines | vercel-labs/agent-skills | 323,900 |
+| #5 | microsoft-foundry | microsoft/azure-skills | 323,000 |
+| #23 | agent-browser | vercel-labs/agent-browser | 279,300 |
+| #44 | shadcn | shadcn/ui | 144,600 |
+| #86 | pdf | anthropics/skills | 111,000 |
+| #88 | seo-audit | coreyhaines31/marketingskills | 111,000 |
+
+生态的几个特点：
+
+- **知名发布者**：Vercel、Anthropic、Microsoft、Google、Supabase、Socket、Sentry 等均已发布官方 Skill
+- **官方认证**：skills.sh 的 `/official` 页面展示由产品**制造者**编写的技能，确保第一手知识的权威性
+- **安全审计**：与 Socket、Snyk 等安全平台合作，对技能进行自动安全审计，结果在 skills.sh 上展示（pass/warn/fail 三档）
+- **Agent 广泛兼容**：支持 Claude Code、Cursor、Codex、GitHub Copilot、OpenCode、Windsurf 等 19 种 AI Agent
+
+## 实战：安装 shadcn/ui Skill
+
+以我们项目正在使用的 shadcn/ui 为例，演示完整流程：
+
+```shell
+# 1. 搜索确认
+npx skills find shadcn
+# 输出显示 shadcn/ui@shadcn，144.6K installs
+
+# 2. 全局安装
+npx skills add shadcn/ui@shadcn -g -y
+
+# 3. 确认安装成功
+npx skills ls -g
+
+# 4. 如需卸载
+npx skills remove shadcn
+```
+
+安装完成后，Agent 在涉及 shadcn/ui 组件相关对话时会自动参考 skill 中的知识，包括组件 API、样式约定、最佳实践等。
+
+## 进阶：创建自定义 Skill
+
+如果现成的 Skill 不能满足需求，可以通过 `npx skills init` 创建自己的 Skill：
+
+```shell
+npx skills init my-project-rules
+```
+
+这会生成以下结构：
+
+```
+my-project-rules/
+└── SKILL.md
+```
+
+`SKILL.md` 是 Skill 的核心文件，使用 Markdown 编写。一个典型的 SKILL.md 包含：
+
+```markdown
+# My Project Rules
+
+## 编码规范
+- 使用 TypeScript strict 模式
+- 组件使用 named export + PascalCase
+- 样式优先使用 Tailwind CSS
+
+## 目录结构
+- `src/components/` — UI 组件
+- `src/lib/` — 工具函数
+- `src/hooks/` — 自定义 Hooks
+
+## 关键约定
+- 不要直接修改 `node_modules/`
+- API 请求统一经过 `apiClient`
+```
+
+创建完成后，可以通过 GitHub 仓库发布你的 Skill，其他人就能用 `npx skills add <owner/repo>` 安装。
+
+## 结语
+
+Skills CLI 正在改变 AI Agent 的能力扩展方式。从最初的"对话中反复提醒"，到 Instructions 文件，再到如今标准化的 Skill 生态——AI Agent 正在从通用助手向领域专家演进。
+
+如果你有常用的开发规范、项目配置或领域知识，不妨将其封装成 Skill，让 AI Agent 真正理解你的上下文。
+
+> The best skill is the one you don't have to explain twice.
+
+## Reference
+
+- [Vercel Labs / Skills](https://github.com/vercel-labs/skills)
+- [skills.sh Leaderboard](https://skills.sh/)
+- [shadcn/ui Skill](https://skills.sh/shadcn/ui/shadcn)
+- [Anthropic Skills](https://skills.sh/anthropics/skills)
+- [Microsoft Azure Skills](https://skills.sh/microsoft/azure-skills)
