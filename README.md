@@ -1,6 +1,6 @@
 # Anxiu-Note
 
-Anxiu 的个人博客站点，基于 [Next.js 16](https://nextjs.org) (App Router) 构建，使用 [Velite](https://velite.js.org) 作为内容管理工具，搭配 [shadcn/ui](https://ui.shadcn.com) (New York 风格) + [Tailwind CSS v4](https://tailwindcss.com) 构建 UI。
+Anxiu 的[个人博客站点](https://github.com/Anxiu0101/client-v2)，基于 [Next.js 16](https://nextjs.org) (App Router) 构建，使用 [Velite](https://velite.js.org) 作为内容管理工具，搭配 [shadcn/ui](https://ui.shadcn.com) (New York 风格) + [Tailwind CSS v4](https://tailwindcss.com) 构建 UI。
 
 ## Tech Stack
 

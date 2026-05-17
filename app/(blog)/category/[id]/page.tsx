@@ -8,6 +8,10 @@ import { siteConfig } from "@/config/site"
 import { PostCard } from "@/components/blog/post-card"
 import { BookCarousel } from "@/components/blog/book-carousel"
 
+export function generateStaticParams() {
+  return categories.map((category) => ({ id: category.slug }))
+}
+
 interface CategoryPageProps {
   params: Promise<{ id: string }>
 }
