@@ -5,6 +5,7 @@ import React, {ComponentPropsWithoutRef} from "react";
 import { ImageWithFallback } from "@/components/mdx/image-with-fallback";
 import { TravelGallery } from "@/components/mdx/travel-gallery";
 import { CodeBlock } from "@/components/mdx/code-block";
+import { CodeGroup } from "@/components/mdx/code-group";
 import { Mermaid } from "@/components/mdx/mermaid";
 import { Alert } from "@/components/mdx/alert";
 import { ReferenceCard } from "@/components/mdx/reference-card";
@@ -20,6 +21,7 @@ const sharedComponents = {
     TravelGallery,
     Mermaid,
     Alert,
+    CodeGroup,
     ReferenceCard,
     ReferenceHover,
     ReferenceList,

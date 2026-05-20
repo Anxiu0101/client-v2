@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  output: "standalone",
   // output: "export", for cloudflare deployment.
   // output: "standalone", for server deployment.
   reactStrictMode: true,

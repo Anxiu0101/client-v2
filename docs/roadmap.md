@@ -16,6 +16,8 @@
 | ✅ 已完成 | Table 样式 | shadcn/ui Table 风格，响应式滚动，行悬停 | `components/mdx/mdx-content.tsx` |
 | ✅ 已完成 | h4/hr 样式 | 四级标题 + 分割线覆盖 | `components/mdx/mdx-content.tsx` |
 | ✅ 已完成 | p/blockquote/a 样式修复 | 移除 mb-2、显式 border 色、break-words | `components/mdx/mdx-content.tsx` |
+| ✅ 已完成 | 代码块元数据支持（title / fold） | ` ```java title="..." fold=true ` 语法，支持标题栏和代码折叠，`fold` 即代码折叠（code folding）语义 | `velite.config.ts`, `components/mdx/code-block.tsx` |
+| ✅ 已完成 | CodeGroup 多语言切换 | `<CodeGroup>` JSX 容器，自动检测 `data-language` 聚合为 Tabs，不接管渲染 | `components/mdx/code-group.tsx`, `components/mdx/mdx-content.tsx` |
 | 🟡 低优先 | 代码块行号 / 语言标注 | `rehype-pretty-code` 已支持，仅需样式 + 按需开启 | `velite.config.ts`, CSS |
 | 🟡 低优先 | `> [!NOTE]` GFM 告警框 | 块引用风格告警框 remark 解析 | `velite.config.ts` |
 | ✅ 已完成 | **Reference Card 组件** | 文章内引用卡片（论文/书籍/外部链接），BibTeX companion 文件，块级 Card + 行内 HoverCard + 底部自动收集列表。citation-js 解析，per-post 内嵌 references，零额外 HTTP 请求 | `velite.config.ts`, `components/mdx/reference-context.tsx`, `components/mdx/reference-card.tsx`, `components/mdx/reference-hover.tsx`, `components/mdx/reference-list.tsx`, `components/mdx/mdx-content.tsx`, `content/tech/2026/mdx-test.bib` |
@@ -87,6 +89,7 @@
 | ✅ 已完成 | 字体优化文档 | 字体加载优化方案 | `docs/features/font-optimization.md` |
 | ✅ 已完成 | 进度跟踪 | 本文件 | `docs/roadmap.md` |
 | 🟡 低优先 | 完善 `getRecentPostsByCategory` | 参数 `category` 未使用 | `lib/velite.ts:53` |
+| ✅ 已完成 | 文章内使用 CodeGroup + title/fold | 在 Design Pattern 文章中测试多语言 Singleton（Go + Java）和 Proxy 虚拟代理示例 | `content/tech/2026/design-pattern-with-java.mdx` |
 
 ---
 

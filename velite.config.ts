@@ -383,7 +383,8 @@ export default defineConfig({
                     theme: {
                         light: "one-light",
                         dark: "one-dark-pro",
-                    }
+                    },
+                    filterMetaString: (meta: string) => meta,
                 }
             ],
             [
